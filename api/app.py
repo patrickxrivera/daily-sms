@@ -1,5 +1,4 @@
-from flask import Flask, request
-from flask_restful import Api, Resource
+from flask import Flask, make_response, request
 from twilio.twiml.messaging_response import MessagingResponse
 
 app = Flask(__name__)
@@ -9,18 +8,13 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True
 app.secret_key = 'changeme'
 
-api = Api(app)
 
+@app.route('/sms', methods=['POST'])
+def reply():
+    resp = MessagingResponse()
+    resp.message('Wassup bruh!')
+    return str(resp)
 
-class Message(Resource):
-    def post(self):
-        resp = MessagingResponse()
-        resp.message('Wassup bruh')
-        print(str(resp))
-        return str(resp)
-
-
-api.add_resource(Message, '/sms')
 
 if __name__ == '__main__':
     app.run(debug=True)
