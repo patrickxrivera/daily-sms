@@ -21,10 +21,12 @@ class App extends Component {
     let res;
 
     try {
-      res = await axios.put('http://localhost:5000/api/message/1/1', data);
+      res = await axios.get('http://localhost:5000/api/messages/23');
     } catch (err) {
       return logError(err);
     }
+
+    console.log(res);
   };
 
   render() {

@@ -6,49 +6,44 @@ message_counter = 1  # REMOVE: only for rapid prototyping
 db = []
 
 
+def add_to_parser(parser, field, type):
+    parser.add_argument(field, type=type, location='json')
+
+
 class Message(Resource):
     parser = reqparse.RequestParser()
-
-    # TODO: dry this up
-    parser.add_argument('text',
-                        type=str,
-                        help='This field cannot be left blank!'
-                        )
-    parser.add_argument('send_time',
-                        type=str,
-                        help='This field cannot be left blank!'
-                        )
-    parser.add_argument('frequency',
-                        type=list,
-                        location='json',
-                        help='This field cannot be left blank!'
-                        )
-    parser.add_argument('active',
-                        type=bool,
-                        help='This field cannot be left blank!'
-                        )
+    add_to_parser(parser, 'text', str)
+    add_to_parser(parser, 'send_time', str)
+    add_to_parser(parser, 'frequency', list)
+    add_to_parser(parser, 'active', bool)
 
     def post(self, user_id):
         """Create a daily message"""
         data = Message.parser.parse_args()
-        data['user_id'] = user_id
-        data['message_id'] = message_counter
+        new_message = {**data, 'user_id': user_id,
+                       'message_id': message_counter}
 
         try:
-            db.append(data)
+            db.append(new_message)
         except RuntimeError:
             raise DBError('Error saving to DB.')
 
-        return data, 201
+        return new_message, 201
 
     def put(self, user_id, message_id):
         """Update daily message properties"""
-        messages = [message for message in db if message['message_id'] == id]
-
-        if not messages:
+        for idx, message in enumerate(db):
+            if message['message_id'] == message_id:
+                self._update_db(message)
+                break
+        else:
             raise UpdateMessageError(user_id, message_id)
 
-        return messages
+        return {'success': 'ok'}, 202
+
+    def _update_db(self, message):
+        data = Message.parser.parse_args()
+        message.update(data)
 
 
 class MessageList(Resource):
