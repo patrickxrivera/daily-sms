@@ -19,9 +19,17 @@ class DbError(Error):
     pass
 
 
-class UpdateMessageError(Error):
+class MessageError(Exception):
     def __init__(self, user_id, message_id, payload=None):
         self.user_id = user_id
         self.message_id = message_id
         self.message = f'No messages for user {user_id} and message {message_id}.'
         self.payload = payload
+
+
+class UpdateMessageError(MessageError):
+    pass
+
+
+class DeleteMessageError(MessageError):
+    pass

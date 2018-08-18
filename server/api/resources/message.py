@@ -1,6 +1,6 @@
 from flask_restful import Resource, reqparse
 
-from errors import DbError, UpdateMessageError
+from errors import DbError, UpdateMessageError, DeleteMessageError
 
 message_counter = 1  # REMOVE: only for rapid prototyping
 db = []
@@ -31,9 +31,9 @@ class Message(Resource):
         return new_message, 201
 
     def put(self, user_id, message_id):
-        """Update daily message properties"""
-        for idx, message in enumerate(db):
-            if message['message_id'] == message_id:
+        """Update message fields"""
+        for message in db:
+            if self._is_target_message(message, user_id, message_id):
                 self._update_db(message)
                 break
         else:
@@ -41,9 +41,26 @@ class Message(Resource):
 
         return {'success': 'ok'}, 202
 
+    def delete(self, user_id, message_id):
+        """Delete specific message"""
+        for idx, message in enumerate(db):
+            if self._is_target_message(message, user_id, message_id):
+                self._delete_message(idx)
+                break
+        else:
+            raise DeleteMessageError(user_id, message_id)
+
+        return {'success': 'ok'}, 202
+
+    def _is_target_message(self, message, user_id, message_id):
+        return message['message_id'] == message_id and message['user_id'] == user_id
+
     def _update_db(self, message):
         data = Message.parser.parse_args()
         message.update(data)
+
+    def _delete_message(self, idx):
+        del db[idx]
 
 
 class MessageList(Resource):
