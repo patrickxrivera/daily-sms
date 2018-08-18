@@ -1,8 +1,7 @@
 from flask import make_response
 
-# TODO: use context manager? class?
 
-
+# TODO: use context manager? class? decorator?
 def with_xml(resp):
     blob = make_response(str(resp))
     blob.headers['Content-Type'] = 'application/xml'

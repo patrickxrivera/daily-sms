@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+const logError = (err) => {
+  console.log(err.response.data.message);
+};
+
 class App extends Component {
   componentDidMount() {
     this.sendTestRequest();
@@ -10,14 +14,17 @@ class App extends Component {
     const data = {
       text: 'test',
       send_time: '8:00 AM PST',
-      frequency: ['Monday', 'Tuesday', 'Wednesday']
+      frequency: ['Monday', 'Tuesday', 'Wednesday'],
+      active: true
     };
 
-    const res = await axios.post('http://localhost:5000/api/message/1', data);
+    let res;
 
-    // const res = await axios.get('http://localhost:5000/api/messages/1');
-
-    console.log(res.data);
+    try {
+      res = await axios.put('http://localhost:5000/api/message/1/1', data);
+    } catch (err) {
+      return logError(err);
+    }
   };
 
   render() {
