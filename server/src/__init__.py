@@ -6,7 +6,7 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 from src.api.message import Message, MessageList
 from src.extensions import db
-from src.api.user import User
+from src.api.user import UserRegistration
 from src.services.message_worker import MessageWorker
 from src.errors import Error
 from src.utils import with_xml
@@ -40,7 +40,7 @@ def init_extensions(app):
 def init_api(app):
     api = Api(app, prefix='/api')
 
-    api.add_resource(User, '/auth')
+    api.add_resource(UserRegistration, '/register')
     api.add_resource(MessageWorker, '/sms')
     api.add_resource(Message, '/message/<int:user_id>',
                      '/message/<int:user_id>/<int:message_id>')
