@@ -1,13 +1,10 @@
 from flask_restful import Resource, reqparse
 
-from errors import DbError, UpdateMessageError, DeleteMessageError
+from src.errors import DbError, UpdateMessageError, DeleteMessageError
+from src.utils import add_to_parser
 
 message_counter = 1  # REMOVE: only for rapid prototyping
 db = []
-
-
-def add_to_parser(parser, field, type):
-    parser.add_argument(field, type=type, location='json')
 
 
 class Message(Resource):
@@ -20,6 +17,7 @@ class Message(Resource):
     def post(self, user_id):
         """Create a daily message"""
         data = Message.parser.parse_args()
+
         new_message = {**data, 'user_id': user_id,
                        'message_id': message_counter}
 

@@ -15,10 +15,6 @@ class Error(Exception):
         return rv
 
 
-class DbError(Error):
-    pass
-
-
 class MessageError(Exception):
     def __init__(self, user_id, message_id, payload=None):
         self.user_id = user_id
@@ -32,4 +28,12 @@ class UpdateMessageError(MessageError):
 
 
 class DeleteMessageError(MessageError):
+    pass
+
+
+class ExistingUserError(Error):
+    pass
+
+
+class DbError(Error):
     pass
