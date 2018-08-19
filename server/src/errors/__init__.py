@@ -35,5 +35,13 @@ class ExistingUserError(Error):
     pass
 
 
+class InvalidLoginError(Error):
+    pass
+
+
 class DbError(Error):
+    pass
+
+
+class TokenGenerationError(Error):
     pass

@@ -7,3 +7,4 @@ flask-cors==3.0.6
 Flask-JWT==0.3.2
 python-dotenv==0.9.1
 passlib==1.7.1
+flask-jwt-extended==3.12.1
