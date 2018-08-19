@@ -1,5 +1,6 @@
 from flask import jsonify
 from src.errors import Error
+from src.models.revoked_token import RevokedTokenModel
 
 
 def init_decorators(app, db, jwt):
@@ -16,5 +17,5 @@ def init_decorators(app, db, jwt):
 
     @jwt.token_in_blacklist_loader
     def check_if_token_is_blacklisted(decrypted_token):
-        token = decrypted_token['token']
-        return models.RevokedTokenModel.is_token_blacklisted(token)
+        token = decrypted_token['jti']
+        return RevokedTokenModel.is_token_blacklisted(token)

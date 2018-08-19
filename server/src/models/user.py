@@ -25,7 +25,8 @@ class UserModel(db.Model):
     def json_id(self):
         return self.as_dict()['id']
 
-    def generate_tokens(self):
+    @property
+    def tokens(self):
         try:
             return {
                 'access_token': create_access_token(self.phone_number),

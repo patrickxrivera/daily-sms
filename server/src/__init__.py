@@ -23,6 +23,7 @@ def create_app():
     app.config['JWT_SECRET_KEY'] = os.environ['SECRET_KEY']
     app.config['JWT_BLACKLIST_ENABLED'] = True
     app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
+    app.config['JWT_REFRESH_TOKEN_EXPIRES'] = False
 
     jwt = JWTManager(app)
 
