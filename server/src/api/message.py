@@ -3,9 +3,6 @@ from flask_restful import Resource, reqparse
 from src.errors import DbError, UpdateMessageError, DeleteMessageError
 from src.utils import add_to_parser
 
-message_counter = 1  # REMOVE: only for rapid prototyping
-db = []
-
 
 class Message(Resource):
     parser = reqparse.RequestParser()
@@ -18,8 +15,7 @@ class Message(Resource):
         """Create a daily message"""
         data = Message.parser.parse_args()
 
-        new_message = {**data, 'user_id': user_id,
-                       'message_id': message_counter}
+        new_message = {**data, 'user_id': user_id}
 
         try:
             db.append(new_message)
