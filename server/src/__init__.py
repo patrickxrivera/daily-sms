@@ -16,19 +16,19 @@ def create_app():
 
     CORS(app)
 
-    # TODO: move to config file w/ test, dev, and prod
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['PROPAGATE_EXCEPTIONS'] = True
-    app.config['JWT_SECRET_KEY'] = os.environ['SECRET_KEY']
-    app.config['JWT_BLACKLIST_ENABLED'] = True
-    app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
-    app.config['JWT_REFRESH_TOKEN_EXPIRES'] = False
+    # TODO: use docker to load prod vs. dev config
+    app_settings = os.getenv('APP_SETTINGS')
+    app.config.from_object(app_settings)
 
     jwt = JWTManager(app)
 
     init_api(app)
     init_extensions(app, db)
     init_decorators(app, db, jwt)
+
+    # shell context for flask cli
+    @app.shell_context_processor
+    def ctx():
+        return {'app': app, 'db': db}
 
     return app

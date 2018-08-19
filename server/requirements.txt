@@ -8,3 +8,4 @@ Flask-JWT==0.3.2
 python-dotenv==0.9.1
 passlib==1.7.1
 flask-jwt-extended==3.12.1
+flask-testing==0.7.1
