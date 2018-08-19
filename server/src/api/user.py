@@ -1,9 +1,11 @@
-from flask_restful import Resource, reqparse
-from flask_jwt_extended import (create_access_token, create_refresh_token,
-                                jwt_required, jwt_refresh_token_required, get_jwt_identity, get_raw_jwt)
-from src.utils import add_to_parser
+from flask_jwt_extended import jwt_required, jwt_refresh_token_required
+from flask_jwt_extended import get_raw_jwt
 from src.errors import ExistingUserError, InvalidLoginError
+from src.models.revoked_token import RevokedTokenModel
+from flask_restful import Resource, reqparse
+from src.utils import add_to_parser
 from src.models.user import UserModel
+
 import json
 
 parser = reqparse.RequestParser()
@@ -36,3 +38,27 @@ class UserLogin(Resource):
                 f"User with phone number {data['phone_number']} doesn't exist.")
 
         return current_user.generate_tokens()
+
+
+class UserLogoutAccess(Resource):
+    @jwt_required
+    def post(self):
+        # bug may be caused since I used 'token' instead of 'jti'
+        token = get_raw_jwt()['token']
+
+        revoked_token = RevokedTokenModel(token=token)
+        revoked_token.add_to_blacklist()
+
+        return {'message': 'Access token has been revoked'}
+
+
+class UserLogoutRefresh(Resource):
+    @jwt_refresh_token_required
+    def post(self):
+        # bug may be caused since I used 'token' instead of 'jti'
+        token = get_raw_jwt()['token']
+
+        revoked_token = RevokedTokenModel(token=token)
+        revoked_token.add_to_blacklist()
+
+        return {'message': 'Refresh token has been revoked'}
