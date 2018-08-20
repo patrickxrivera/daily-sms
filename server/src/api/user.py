@@ -23,7 +23,7 @@ class UserRegistration(Resource):
         user = UserModel(**data)
         user.save_to_db()
 
-        return user.tokens, 201
+        return {**user.tokens, 'verified': user.is_verified}, 201
 
 
 class UserLogin(Resource):

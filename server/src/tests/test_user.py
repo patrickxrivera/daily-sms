@@ -20,6 +20,13 @@ class TestUserResource(BaseTestCase):
         self.assertTrue('access_token' in data)
         self.assertTrue('refresh_token' in data)
 
+    def test_registration_verification_status(self):
+        """Ensure verification status is false during initial registration"""
+        data = self._post(register_route, user_data)
+
+        self.assertEqual(data['status_code'], 201)
+        self.assertFalse(data['verified'])
+
     def test_registration_duplicate_user(self):
         """Ensure user receives error message when registering duplicate phone number"""
         self._post(register_route, user_data)
@@ -31,10 +38,10 @@ class TestUserResource(BaseTestCase):
     def test_registration_empty_input(self):
         """Ensure user receives error message when phone number is left empty"""
         data = self._post(register_route)
-
+        print(data)
         self.assertEqual(data['status_code'], 400)
         self.assertEqual(data['message']['phone_number'],
-                         'phone_number is required.')
+                         'Phone number is required.')
 
     def test_login(self):
         """Ensure user receives tokens on login"""
@@ -60,7 +67,7 @@ class TestUserResource(BaseTestCase):
 
         self.assertEqual(data['status_code'], 400)
         self.assertEqual(data['message']['phone_number'],
-                         'phone_number is required.')
+                         'Phone number is required.')
 
     def test_logout(self):
         """Ensure user's access token is revoked on logout"""

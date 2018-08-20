@@ -10,8 +10,8 @@ class UserModel(db.Model):
     id = Column(Integer, primary_key=True)
     phone_number = Column(Integer, unique=True, nullable=False)
     country_code = Column(String, nullable=False)
-    phone_number_confirmed = Column(Boolean, nullable=False, default=False)
-    confirmation_code = Column(String, nullable=True)
+    verified = Column(Boolean, nullable=False, default=False)
+    verification_code = Column(String, nullable=True)
 
     def __init__(self, phone_number, country_code):
         self.phone_number = phone_number
@@ -33,7 +33,14 @@ class UserModel(db.Model):
                 'refresh_token': create_refresh_token(self.phone_number)
             }
         except:
-            TokenGenerationError('Error generating JWT tokens.')
+            raise TokenGenerationError('Error generating JWT tokens.')
+
+    @property
+    def is_verified(self):
+        try:
+            return self.verified
+        except:
+            raise DBError('Error fetching from db.')
 
     def as_dict(self):
         """Serializes SQLAlchemy row to JSON so the row can be returned"""
@@ -48,14 +55,14 @@ class UserModel(db.Model):
             db.session.add(self)
             db.session.commit()
         except:
-            DbError('Error saving to db.')
+            raise DbError('Error saving to db.')
 
     def delete_from_db(self):
         try:
             db.session.delete(self)
             db.session.commit()
         except:
-            DbError('Error saving to db.')
+            raise DbError('Error saving to db.')
 
     def __repr__(self):
         """For better error messages"""
