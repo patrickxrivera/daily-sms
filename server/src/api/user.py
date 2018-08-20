@@ -10,7 +10,7 @@ parser = reqparse.RequestParser()
 
 
 class UserRegistration(Resource):
-    add_to_parser(parser, 'phone_number', int)
+    add_to_parser(parser, 'phone_number', int, required=True)
 
     @staticmethod
     def post():
@@ -26,7 +26,7 @@ class UserRegistration(Resource):
 
 
 class UserLogin(Resource):
-    add_to_parser(parser, 'phone_number', int)
+    add_to_parser(parser, 'phone_number', int, required=True)
 
     @staticmethod
     def post():
@@ -49,7 +49,7 @@ class UserLogoutAccess(Resource):
         revoked_token = RevokedTokenModel(token=token)
         revoked_token.add_to_blacklist()
 
-        return {'message': 'Access token has been revoked'}
+        return {'message': 'Access token has been revoked.'}
 
 
 class UserTokenRefresh(Resource):
