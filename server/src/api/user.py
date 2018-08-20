@@ -11,6 +11,7 @@ parser = reqparse.RequestParser()
 
 class UserRegistration(Resource):
     add_to_parser(parser, 'phone_number', int, required=True)
+    add_to_parser(parser, 'country_code', str, required=True)
 
     @staticmethod
     def post():

@@ -9,13 +9,13 @@ class UserModel(db.Model):
 
     id = Column(Integer, primary_key=True)
     phone_number = Column(Integer, unique=True, nullable=False)
-    verified = Column(Boolean, nullable=False, default=True)
-    code = Column(Integer, unique=True)
+    country_code = Column(String, nullable=False)
+    phone_number_confirmed = Column(Boolean, nullable=False, default=False)
+    confirmation_code = Column(String, nullable=True)
 
-    def __init__(self, **kwargs):
-        # preserve SQLAlchemy's built in constructor functionality
-        super(UserModel, self).__init__(**kwargs)
-        self.phone_number = kwargs['phone_number']
+    def __init__(self, phone_number, country_code):
+        self.phone_number = phone_number
+        self.country_code = country_code
 
     @classmethod
     def find_by_phone_number(cls, phone_number):

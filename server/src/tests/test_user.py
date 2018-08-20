@@ -3,7 +3,7 @@ from src import db
 from src.models.user import UserModel
 from src.tests.base import BaseTestCase
 
-user_data = {'phone_number': 111111111}
+user_data = {'phone_number': 111111111, 'country_code': '1'}
 register_route = '/api/register'
 login_route = '/api/login'
 logout_route = '/api/logout'
