@@ -74,21 +74,23 @@ export const Button = styled.button`
   }
 `;
 
-const SignUp = () => (
+const SignUp = ({ handleSubmit }) => (
   <FilledBackground>
-    <InputWrapper>
-      <div>
-        <CountryCodeText>USA (+1)</CountryCodeText>
-        <Line />
-        <Input placeholder="Your Phone Number" />
-        <Line />
-        <Subtext>We will send you a one-time verification code.</Subtext>
-        <Subtext>Message and data rates may apply.</Subtext>
-      </div>
-      <div>
-        <Button>Send</Button>
-      </div>
-    </InputWrapper>
+    <form onSubmit={handleSubmit}>
+      <InputWrapper>
+        <div>
+          <CountryCodeText>USA (+1)</CountryCodeText>
+          <Line />
+          <Input placeholder="Your Phone Number" />
+          <Line />
+          <Subtext>We will send you a one-time verification code.</Subtext>
+          <Subtext>Message and data rates may apply.</Subtext>
+        </div>
+        <div>
+          <Button onClick={handleSubmit}>Send</Button>
+        </div>
+      </InputWrapper>
+    </form>
   </FilledBackground>
 );
 
