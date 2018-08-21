@@ -1,19 +1,26 @@
 import React, { Component } from 'react';
 
 import SignUp from './';
-import { registerUser } from 'api/user';
+import api from 'api';
+import { isCreateError } from 'utils/errors';
 
 class SignUpContainer extends Component {
   state = {
     phoneNumber: {
       value: '',
-      name: 'phoneNumber'
+      name: 'phoneNumber',
+      errorText: ''
     },
     countryCode: {
-      value: ''
+      value: 3
     }
   };
 
+  // TODO:
+  // 1) dry up handlers
+  // 2) add phone number auto formatting
+  // 3) return error if given non-numbers
+  // 4) add redux form for validation and errors?
   handleInputChange = (e) => {
     const propName = e.target.name;
 
@@ -41,14 +48,29 @@ class SignUpContainer extends Component {
 
     const { phoneNumber, countryCode } = this.state;
 
-    const res = await registerUser({ phoneNumber, countryCode });
+    const res = await api.registerUser({ phoneNumber, countryCode });
 
-    console.log({ res });
+    isCreateError(res) ? this.handleRequestError(res) : this.handleRequestSuccess(res);
+  };
 
-    // isError(res) ? handleRequestError() : handleRequestSuccess()
+  handleRequestSuccess = ({ data }) => {
+    // TODO:
+    // 1) save accessToken and refreshToken to redux store
+    // 2) handle if user is already verified
+    this.props.history.push('/verify');
+  };
+
+  handleRequestError = (errorText) => {
+    this.setState({
+      phoneNumber: {
+        ...this.state.phoneNumber,
+        errorText
+      }
+    });
   };
 
   render() {
+    console.log(this.state.phoneNumber);
     return (
       <SignUp
         {...this.state}

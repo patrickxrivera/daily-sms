@@ -7,7 +7,8 @@ import {
   Button,
   CountryCodeText,
   Line,
-  Subtext
+  Subtext,
+  ErrorText
 } from './styles';
 
 const SignUp = ({ handleSubmit, handleInputChange, handleBlur, phoneNumber }) => (
@@ -26,6 +27,7 @@ const SignUp = ({ handleSubmit, handleInputChange, handleBlur, phoneNumber }) =>
             autoFocus
           />
           <Line />
+          <ErrorText>{phoneNumber.errorText}</ErrorText>
           <Subtext>We will send you a one-time verification code.</Subtext>
           <Subtext>Message and data rates may apply.</Subtext>
         </div>

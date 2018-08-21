@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { AppStyles, Wrapper } from './styles';
 
 import HomeController from 'components/HomeController';
 import SignUpContainer from 'components/SignUp/container';
+import VerificationPageContainer from 'components/VerificationPage/container';
 
 const App = () => (
   <Wrapper>
@@ -11,6 +12,7 @@ const App = () => (
       <Switch>
         <Route exact path="/" component={HomeController} />
         <Route path="/register" component={SignUpContainer} />
+        <Route path="/verify" component={VerificationPageContainer} />
       </Switch>
     </Router>
   </Wrapper>

@@ -72,3 +72,9 @@ export const Button = styled.button`
     background: rgba(9, 132, 280, 1);
   }
 `;
+
+export const ErrorText = styled.div`
+  color: #dc3545;
+  margin: -1.4rem 0 0.4rem;
+  height: 18px;
+`;
