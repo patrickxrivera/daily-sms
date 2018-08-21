@@ -11,7 +11,7 @@ class UserModel(db.Model):
     phone_number = Column(Integer, unique=True, nullable=False)
     country_code = Column(String, nullable=False)
     verified = Column(Boolean, nullable=False, default=False)
-    verification_code = Column(String, nullable=True)
+    authy_user_id = Column(String, nullable=True)
 
     def __init__(self, phone_number, country_code):
         self.phone_number = phone_number
