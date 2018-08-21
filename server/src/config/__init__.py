@@ -1,4 +1,5 @@
 import os
+from .settings import AuthySettings, TwilioSettings
 
 
 class BaseConfig:
