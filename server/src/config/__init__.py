@@ -1,5 +1,8 @@
 import os
+from dotenv import load_dotenv
 from .settings import AuthySettings, TwilioSettings
+
+load_dotenv()
 
 
 class BaseConfig:

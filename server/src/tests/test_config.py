@@ -5,6 +5,7 @@ from flask import current_app
 from flask_testing import TestCase
 
 from src import create_app
+from src.config import DevelopmentConfig
 
 app = create_app()
 
