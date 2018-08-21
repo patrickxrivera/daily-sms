@@ -1,24 +1,17 @@
 import axios from 'axios';
 
+import { isInvalidPhoneNumber, normalizeUserData } from './helpers';
+
 const API_BASE = 'http://localhost:5000/api';
 const REGISTER_USER_ENDPOINT = `${API_BASE}/register`;
 
-const handleRegisterUserSuccess = ({ data }) => {
-  console.log({ data });
-  return data;
-};
-
-const isInvalidPhoneNumber = (message) => message['phone_number'];
+const handleRegisterUserSuccess = (res) => res;
 
 const handleRegisterUserError = ({ response }) => {
   const { message } = response.data;
+
   return isInvalidPhoneNumber(message) ? message['phone_number'] : message;
 };
-
-const normalizeUserData = ({ phoneNumber, countryCode }) => ({
-  phone_number: phoneNumber,
-  country_code: countryCode
-});
 
 export const registerUser = (userData) => {
   const normalizedUserData = normalizeUserData(userData);

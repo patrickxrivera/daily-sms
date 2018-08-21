@@ -5,8 +5,35 @@ import { registerUser } from 'api/user';
 
 class SignUpContainer extends Component {
   state = {
-    phoneNumber: '904',
-    countryCode: '1'
+    phoneNumber: {
+      value: '',
+      name: 'phoneNumber'
+    },
+    countryCode: {
+      value: ''
+    }
+  };
+
+  handleInputChange = (e) => {
+    const propName = e.target.name;
+
+    this.setState({
+      [propName]: {
+        ...this.state[propName],
+        value: e.target.value
+      }
+    });
+  };
+
+  handleBlur = (e) => {
+    const propName = e.target.name;
+
+    this.setState({
+      [propName]: {
+        ...this.state[propName],
+        isFocused: true
+      }
+    });
   };
 
   handleSubmit = async (e) => {
@@ -14,12 +41,22 @@ class SignUpContainer extends Component {
 
     const { phoneNumber, countryCode } = this.state;
 
-    const data = await registerUser({ phoneNumber, countryCode });
-    console.log({ data });
+    const res = await registerUser({ phoneNumber, countryCode });
+
+    console.log({ res });
+
+    // isError(res) ? handleRequestError() : handleRequestSuccess()
   };
 
   render() {
-    return <SignUp {...this.state} handleSubmit={this.handleSubmit} />;
+    return (
+      <SignUp
+        {...this.state}
+        handleBlur={this.handleBlur}
+        handleSubmit={this.handleSubmit}
+        handleInputChange={this.handleInputChange}
+      />
+    );
   }
 }
 

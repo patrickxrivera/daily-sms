@@ -3,7 +3,10 @@ from src import db
 from src.models.user import UserModel
 from src.tests.base import BaseTestCase
 
-user_data = {'phone_number': 111111111, 'country_code': '1'}
+user_data = {'phone_number': 111111111, 'country_code': 1}
+empty_phone_number = {'country_code': 1}
+empty_country_code = {'phone_number': 1111111}
+empty_request = {}
 register_route = '/api/register'
 login_route = '/api/login'
 logout_route = '/api/logout'
@@ -35,13 +38,21 @@ class TestUserResource(BaseTestCase):
 
         self.assertEqual(data['status_code'], 400)
 
-    def test_registration_empty_input(self):
+    def test_registration_empty_phone_number(self):
         """Ensure user receives error message when phone number is left empty"""
-        data = self._post(register_route)
-        print(data)
+        data = self._post(register_route, empty_phone_number)
+
         self.assertEqual(data['status_code'], 400)
         self.assertEqual(data['message']['phone_number'],
                          'Phone number is required.')
+
+    def test_registration_empty_country_code(self):
+        """Ensure user receives error message when country code is left empty"""
+        data = self._post(register_route, empty_country_code)
+
+        self.assertEqual(data['status_code'], 400)
+        self.assertEqual(data['message']['country_code'],
+                         'Country code is required.')
 
     def test_login(self):
         """Ensure user receives tokens on login"""
