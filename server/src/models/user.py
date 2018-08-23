@@ -21,9 +21,17 @@ class UserModel(db.Model):
     def find_by_phone_number(cls, phone_number):
         return cls.query.filter_by(phone_number=phone_number).first()
 
+    @classmethod
+    def find_by_user_id(cls, user_id):
+        return cls.query.filter_by(id=user_id).first()
+
     @property
     def json_id(self):
         return self.as_dict()['id']
+
+    @property
+    def formatted_phone_number(self):
+        return f'+{self.country_code}{self.phone_number}'
 
     @property
     def tokens(self):

@@ -45,3 +45,15 @@ class DbError(Error):
 
 class TokenGenerationError(Error):
     pass
+
+
+class VerificationCodeNotSentError(Error):
+    pass
+
+
+class UserNotFoundError(Error):
+    pass
+
+
+class FailedVerificationError(Error):
+    pass

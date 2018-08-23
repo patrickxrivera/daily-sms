@@ -23,6 +23,13 @@ class TestUserResource(BaseTestCase):
         self.assertTrue('access_token' in data)
         self.assertTrue('refresh_token' in data)
 
+    def test_registration_authy(self):
+        """Ensure user receives authy_user_id during registration"""
+        data = self._post(register_route, user_data)
+
+        self.assertEqual(data['status_code'], 201)
+        self.assertTrue(data['authy_user_id'] is not None)
+
     def test_registration_verification_status(self):
         """Ensure verification status is false during initial registration"""
         data = self._post(register_route, user_data)
