@@ -29,12 +29,7 @@ class UserRegistration(Resource):
 
         if authy_service.request_phone_verification_code(user):
             user.save_to_db()
-            return {
-                **user.tokens,
-                'verified': user.is_verified,
-                'authy_user_id': user.authy_user_id,
-                'user_id': user.id
-            }, 201
+            return {**user.tokens, 'user_id': user.id}, 201
 
         raise VerificationCodeNotSentError(
             'There was an issue requesting the verification code. Try again.')

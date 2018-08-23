@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactLoading from 'react-loading';
 
 import {
   FilledBackground,
@@ -11,7 +12,22 @@ import {
   ErrorText
 } from './styles';
 
-const SignUp = ({ handleSubmit, handleInputChange, handleBlur, phoneNumber }) => (
+const LOADING_SIZE = 25;
+
+const renderButtonContent = (renderLoadingIndicator) =>
+  renderLoadingIndicator ? (
+    <ReactLoading type="spinningBubbles" height={LOADING_SIZE} width={LOADING_SIZE} />
+  ) : (
+    'Send'
+  );
+
+const SignUp = ({
+  handleSubmit,
+  handleInputChange,
+  renderLoadingIndicator,
+  handleBlur,
+  phoneNumber
+}) => (
   <FilledBackground>
     <form onSubmit={handleSubmit}>
       <InputWrapper>
@@ -32,7 +48,7 @@ const SignUp = ({ handleSubmit, handleInputChange, handleBlur, phoneNumber }) =>
           <Subtext>Message and data rates may apply.</Subtext>
         </div>
         <div>
-          <Button onClick={handleSubmit}>Send</Button>
+          <Button onClick={handleSubmit}>{renderButtonContent(renderLoadingIndicator)}</Button>
         </div>
       </InputWrapper>
     </form>

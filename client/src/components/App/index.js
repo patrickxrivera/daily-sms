@@ -12,7 +12,7 @@ const App = () => (
       <Switch>
         <Route exact path="/" component={HomeController} />
         <Route path="/register" component={SignUpContainer} />
-        <Route path="/verify" component={VerificationPageContainer} />
+        <Route path="/verify/:user_id" component={VerificationPageContainer} />
       </Switch>
     </Router>
   </Wrapper>

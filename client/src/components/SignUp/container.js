@@ -12,8 +12,9 @@ class SignUpContainer extends Component {
       errorText: ''
     },
     countryCode: {
-      value: 3
-    }
+      value: 1
+    },
+    renderLoadingIndicator: false
   };
 
   // TODO:
@@ -46,6 +47,8 @@ class SignUpContainer extends Component {
   handleSubmit = async (e) => {
     e.preventDefault();
 
+    this.setState({ renderLoadingIndicator: true });
+
     const { phoneNumber, countryCode } = this.state;
 
     const res = await api.registerUser({ phoneNumber, countryCode });
@@ -57,7 +60,8 @@ class SignUpContainer extends Component {
     // TODO:
     // 1) save accessToken and refreshToken to redux store
     // 2) handle if user is already verified
-    this.props.history.push('/verify');
+    console.log({ data });
+    this.props.history.push(`/verify/${data.user_id}`);
   };
 
   handleRequestError = (errorText) => {
@@ -65,21 +69,19 @@ class SignUpContainer extends Component {
       phoneNumber: {
         ...this.state.phoneNumber,
         errorText
-      }
+      },
+      renderLoadingIndicator: false
     });
   };
 
-  render() {
-    console.log(this.state.phoneNumber);
-    return (
-      <SignUp
-        {...this.state}
-        handleBlur={this.handleBlur}
-        handleSubmit={this.handleSubmit}
-        handleInputChange={this.handleInputChange}
-      />
-    );
-  }
+  render = () => (
+    <SignUp
+      {...this.state}
+      handleBlur={this.handleBlur}
+      handleSubmit={this.handleSubmit}
+      handleInputChange={this.handleInputChange}
+    />
+  );
 }
 
 export default SignUpContainer;

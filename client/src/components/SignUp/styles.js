@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import colors from 'utils/colors';
+import { fadeInUp } from 'utils/animations';
 
 export const FilledBackground = styled.div`
   background-color: ${colors.primary};
@@ -10,6 +11,8 @@ export const FilledBackground = styled.div`
 `;
 
 export const InputWrapper = styled.div`
+  opacity: 0;
+  animation: 800ms ${fadeInUp} 200ms forwards;
   background-color: #fff;
   border-radius: 4px;
   box-shadow: rgba(23, 43, 99, 0.26) 0 7px 42px;
@@ -67,6 +70,9 @@ export const Button = styled.button`
   background: ${colors.primary};
   width: 100%;
   height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &:hover {
     background: rgba(9, 132, 280, 1);
