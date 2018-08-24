@@ -57,3 +57,7 @@ class UserNotFoundError(Error):
 
 class FailedVerificationError(Error):
     pass
+
+
+class InvalidVerificationCodeError(Error):
+    pass

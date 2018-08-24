@@ -33,17 +33,6 @@ class SignUpContainer extends Component {
     });
   };
 
-  handleBlur = (e) => {
-    const propName = e.target.name;
-
-    this.setState({
-      [propName]: {
-        ...this.state[propName],
-        isFocused: true
-      }
-    });
-  };
-
   handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -77,7 +66,6 @@ class SignUpContainer extends Component {
   render = () => (
     <SignUp
       {...this.state}
-      handleBlur={this.handleBlur}
       handleSubmit={this.handleSubmit}
       handleInputChange={this.handleInputChange}
     />

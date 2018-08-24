@@ -21,13 +21,7 @@ const renderButtonContent = (renderLoadingIndicator) =>
     'Send'
   );
 
-const SignUp = ({
-  handleSubmit,
-  handleInputChange,
-  renderLoadingIndicator,
-  handleBlur,
-  phoneNumber
-}) => (
+const SignUp = ({ handleSubmit, handleInputChange, renderLoadingIndicator, phoneNumber }) => (
   <FilledBackground>
     <form onSubmit={handleSubmit}>
       <InputWrapper>
@@ -38,7 +32,6 @@ const SignUp = ({
             placeholder="Your Phone Number"
             value={phoneNumber.value}
             onChange={handleInputChange}
-            onFocus={handleBlur}
             name={phoneNumber.name}
             autoFocus
           />

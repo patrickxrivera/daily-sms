@@ -2,6 +2,7 @@ from flask_jwt_extended import jwt_required, jwt_refresh_token_required
 from flask_jwt_extended import get_raw_jwt, get_jwt_identity
 from src.errors import ExistingUserError, InvalidLoginError
 from src.errors import VerificationCodeNotSentError
+from src.errors import InvalidVerificationCodeError
 from src.errors import UserNotFoundError
 from flask_restful import Resource, reqparse
 from src.models import RevokedTokenModel
@@ -51,8 +52,9 @@ class Verify(Resource):
         authy_service = AuthyService()
 
         if not authy_service.confirm_phone_number(user, data['verification_code']):
-            raise InvalidVerficationCodeError(
-                'Verification code is invalid. Please try again.')
+            # TODO: create more accurate error message based on error that ocurred
+            raise InvalidVerificationCodeError(
+                'Verification code must be between 6 and 12 characters.')
 
         user.verified = True
         user.save_to_db()
