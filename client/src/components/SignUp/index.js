@@ -5,12 +5,12 @@ import {
   FilledBackground,
   InputWrapper,
   Input,
-  Button,
   CountryCodeText,
   Line,
   Subtext,
   ErrorText
 } from './styles';
+import Button from 'components/Button';
 
 const LOADING_SIZE = 25;
 
@@ -41,7 +41,9 @@ const SignUp = ({ handleSubmit, handleInputChange, renderLoadingIndicator, phone
           <Subtext>Message and data rates may apply.</Subtext>
         </div>
         <div>
-          <Button onClick={handleSubmit}>{renderButtonContent(renderLoadingIndicator)}</Button>
+          <Button width="100%" onClick={handleSubmit}>
+            {renderButtonContent(renderLoadingIndicator)}
+          </Button>
         </div>
       </InputWrapper>
     </form>
