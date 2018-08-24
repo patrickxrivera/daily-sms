@@ -22,7 +22,7 @@ const messages = [
 ];
 
 const renderMessage = ({ id, status, text, frequency, send_at, created_at }) => (
-  <TableRow id={id}>
+  <TableRow key={id}>
     <TableCell>{status}</TableCell>
     <TableCell>{text}</TableCell>
     <TableCell>{frequency}</TableCell>
@@ -37,19 +37,21 @@ const renderMessage = ({ id, status, text, frequency, send_at, created_at }) => 
 const Table = () => (
   <Wrapper>
     <TableWrapper>
-      <TableRow noBorder>
-        <TableCell heading>Status</TableCell>
-        <TableCell heading align="left">
-          Text
-        </TableCell>
-        <TableCell heading>Frequency</TableCell>
-        <TableCell heading align="left">
-          Send At
-        </TableCell>
-        <TableCell heading>Created</TableCell>
-        <TableCell />
-      </TableRow>
-      {messages.map(renderMessage)}
+      <tbody>
+        <TableRow noBorder>
+          <TableCell heading>Status</TableCell>
+          <TableCell heading align="left">
+            Text
+          </TableCell>
+          <TableCell heading>Frequency</TableCell>
+          <TableCell heading align="left">
+            Send At
+          </TableCell>
+          <TableCell heading>Created</TableCell>
+          <TableCell />
+        </TableRow>
+        {messages.map(renderMessage)}
+      </tbody>
     </TableWrapper>
   </Wrapper>
 );

@@ -4,13 +4,18 @@ import colors from 'utils/colors';
 import React from 'react';
 
 const defaultProps = {
+  color: '#fff',
   width: '100%',
   bgColor: colors.primary,
-  height: '50px'
+  height: '50px',
+  fontSize: '14px',
+  marginRight: '0px',
+  hoverBgColor: 'rgba(9, 132, 280, 1)',
+  border: 'none'
 };
 
-const Button = ({ width, bgColor, height, children }) => (
-  <ButtonStyles bgColor={bgColor} width={width} height={height}>
+const Button = ({ children, handleClick, ...props }) => (
+  <ButtonStyles onClick={handleClick} {...props}>
     {children}
   </ButtonStyles>
 );

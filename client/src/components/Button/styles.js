@@ -1,14 +1,15 @@
 import styled from 'styled-components';
 
 export const ButtonStyles = styled.button`
-  color: #fff;
-  padding: 0.6em 0.8em;
+  color: ${({ color }) => color};
+  padding: 0.2em 0.4em;
   outline: 0;
-  font-size: 1rem;
+  margin-right: ${({ marginRight }) => marginRight};
+  font-size: ${({ fontSize }) => fontSize};
   font-weight: 500;
   line-height: 1.2222222;
   text-align: center;
-  border: none;
+  border: ${({ border }) => border};
   border-radius: 4px;
   box-shadow: 0 2px 4px 0 rgba(14, 30, 37, 0.12);
   cursor: pointer;
@@ -20,6 +21,6 @@ export const ButtonStyles = styled.button`
   align-items: center;
 
   &:hover {
-    background: rgba(9, 132, 280, 1);
+    background: ${({ hoverBgColor }) => hoverBgColor};
   }
 `;

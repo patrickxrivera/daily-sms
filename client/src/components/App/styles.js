@@ -1,5 +1,7 @@
 import styled, { injectGlobal } from 'styled-components';
 
+import font from 'utils/font';
+
 export const AppStyles = injectGlobal`
   html, body {
     margin: 0;
@@ -10,7 +12,6 @@ export const AppStyles = injectGlobal`
 export const Wrapper = styled.div`
   color: rgb(66, 66, 65);
   font-size: 14px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, 'Apple Color Emoji', Arial,
-    sans-serif, 'Segoe UI Emoji', 'Segoe UI Symbol';
+  font-family: ${font.default};
   line-height: 1.35;
 `;
