@@ -4,7 +4,7 @@ import Dashboard from './';
 
 class DashboardContainer extends Component {
   state = {
-    showModal: false
+    showModal: true
   };
 
   handleOpenModal = () => {

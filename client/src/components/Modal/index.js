@@ -1,89 +1,69 @@
 import React from 'react';
-import styled from 'styled-components';
 import { Field, reduxForm } from 'redux-form';
+import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import FormLabel from '@material-ui/core/FormLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import Checkbox from '@material-ui/core/Checkbox';
 
 import ReactModal from 'react-modal';
 import Button from 'components/Button';
-import colors from 'utils/colors';
-import font from 'utils/font';
+import {
+  Form,
+  Heading,
+  DayPickerWrapper,
+  FieldsWrapper,
+  FieldRow,
+  Label,
+  FieldStyled,
+  Footer,
+  InputStyled,
+  style
+} from './styles';
 
-const style = {
-  content: {
-    width: '450px',
-    height: '424px',
-    margin: 'auto',
-    fontFamily: `${font.default}`,
-    boxShadow: '0 0 0 1px rgba(0,0,0,.07), 0 2px 15px rgba(84,96,103,.25)',
-    background: '#f7fafc',
-    borderRadius: '4px',
-    padding: 'none'
-  },
-  overlay: {
-    backgroundColor: 'rgba(82,95,127,.25)'
-  }
-};
+const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
-export const Heading = styled.div`
-  font-size: 16px;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 4px 4px 0 0;
-  box-shadow: 0 0 10px rgba(135, 146, 162, 0.15);
-`;
+const renderFormControlLabel = (day) => (
+  <FormControlLabel
+    key={day}
+    control={<Checkbox checked={day} value={day} />}
+    label={day}
+    style={{ height: '35px' }}
+  />
+);
 
-export const FieldRow = styled.div`
-  padding: 15px 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+const renderDayPicker = () => (
+  <DayPickerWrapper>
+    <FormControl component="fieldset">
+      <FormGroup>{DAYS.map(renderFormControlLabel)}</FormGroup>
+    </FormControl>
+  </DayPickerWrapper>
+);
 
-export const FieldStyled = styled(Field)`
-  box-sizing: border-box;
-  display: block;
-  height: 30px;
-  padding: 6px 14px;
-  border: 2px solid #e9ebeb;
-  border-radius: 4px;
-  background: 0 0;
+const renderTimePicker = () => (
+  <InputStyled>
+    <TextField
+      InputProps={{
+        disableUnderline: true
+      }}
+      type="time"
+      defaultValue="07:30"
+      InputLabelProps={{
+        shrink: true
+      }}
+      inputProps={{
+        step: 300 // 5 min
+      }}
+    />
+  </InputStyled>
+);
 
-  &:focus {
-    outline: 0;
-    border-color: ${colors.primary};
-    box-shadow: 0 0 1px 0 ${colors.primary};
-  }
-`;
-
-export const Label = styled.label`
-  width: 100px;
-  text-align: right;
-  margin-right: 18px;
-  font-size: 14px;
-`;
-
-export const FieldsWrapper = styled.div`
-  margin: 20px 0;
-`;
-
-export const Footer = styled.div`
-  border-top: 2px solid #fff;
-  display: flex;
-  justify-content: flex-end;
-  padding-top: 16px;
-  padding-bottom: 16px;
-  padding-right: 10px;
-  align-items: center;
-`;
-
-export const Form = styled.form`
-  height: 100%;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-`;
-
-const Modal = ({ showModal, handleCloseModal, handleSubmit }) => (
+const Modal = ({ showModal, showCheckbox, handleCloseModal, handleSubmit, handleOpenCheckbox }) => (
   <ReactModal isOpen={showModal} onRequestClose={handleCloseModal} style={{ ...style }}>
+    {showCheckbox && renderDayPicker()}
     <Form onSubmit={handleSubmit} autocomplete="off">
       <Heading>Create a new message</Heading>
       <FieldsWrapper>
@@ -93,11 +73,16 @@ const Modal = ({ showModal, handleCloseModal, handleSubmit }) => (
         </FieldRow>
         <FieldRow>
           <Label htmlFor="firstName">Frequency</Label>
-          <FieldStyled name="firstName" component="input" type="text" />
+          <FieldStyled
+            onClick={handleOpenCheckbox}
+            name="firstName"
+            component="input"
+            type="text"
+          />
         </FieldRow>
         <FieldRow>
           <Label htmlFor="firstName">Send At</Label>
-          <FieldStyled name="firstName" component="input" type="text" />
+          <Field name="firstName" component={renderTimePicker} type="text" />
         </FieldRow>
       </FieldsWrapper>
       <Footer>

@@ -1,4 +1,5 @@
 import styled, { injectGlobal } from 'styled-components';
+import { createMuiTheme } from '@material-ui/core/styles';
 
 import font from 'utils/font';
 
@@ -8,6 +9,24 @@ export const AppStyles = injectGlobal`
     padding: 0;
   }
 `;
+
+export const theme = createMuiTheme({
+  typography: {
+    // Use the system font instead of the default Roboto font.
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"'
+    ].join(',')
+  }
+});
 
 export const Wrapper = styled.div`
   color: rgb(66, 66, 65);
