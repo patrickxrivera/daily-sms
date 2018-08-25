@@ -1,69 +1,31 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { withStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import FormLabel from '@material-ui/core/FormLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import Checkbox from '@material-ui/core/Checkbox';
 
 import ReactModal from 'react-modal';
+import TimePicker from 'components/TimePicker';
+import DayPicker from 'components/DayPicker';
 import Button from 'components/Button';
 import {
   Form,
   Heading,
-  DayPickerWrapper,
   FieldsWrapper,
   FieldRow,
   Label,
   FieldStyled,
   Footer,
-  InputStyled,
   style
 } from './styles';
 
-const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-
-const renderFormControlLabel = (day) => (
-  <FormControlLabel
-    key={day}
-    control={<Checkbox checked={day} value={day} />}
-    label={day}
-    style={{ height: '35px' }}
-  />
-);
-
-const renderDayPicker = () => (
-  <DayPickerWrapper>
-    <FormControl component="fieldset">
-      <FormGroup>{DAYS.map(renderFormControlLabel)}</FormGroup>
-    </FormControl>
-  </DayPickerWrapper>
-);
-
-const renderTimePicker = () => (
-  <InputStyled>
-    <TextField
-      InputProps={{
-        disableUnderline: true
-      }}
-      type="time"
-      defaultValue="07:30"
-      InputLabelProps={{
-        shrink: true
-      }}
-      inputProps={{
-        step: 300 // 5 min
-      }}
-    />
-  </InputStyled>
-);
-
-const Modal = ({ showModal, showCheckbox, handleCloseModal, handleSubmit, handleOpenCheckbox }) => (
+const Modal = ({
+  showModal,
+  showCheckbox,
+  handleCloseModal,
+  handleSubmit,
+  handleOpenCheckbox,
+  ...props
+}) => (
   <ReactModal isOpen={showModal} onRequestClose={handleCloseModal} style={{ ...style }}>
-    {showCheckbox && renderDayPicker()}
+    {showCheckbox && <DayPicker {...props} />}
     <Form onSubmit={handleSubmit} autocomplete="off">
       <Heading>Create a new message</Heading>
       <FieldsWrapper>
@@ -74,6 +36,7 @@ const Modal = ({ showModal, showCheckbox, handleCloseModal, handleSubmit, handle
         <FieldRow>
           <Label htmlFor="firstName">Frequency</Label>
           <FieldStyled
+            focusColorOff
             onClick={handleOpenCheckbox}
             name="firstName"
             component="input"
@@ -82,7 +45,7 @@ const Modal = ({ showModal, showCheckbox, handleCloseModal, handleSubmit, handle
         </FieldRow>
         <FieldRow>
           <Label htmlFor="firstName">Send At</Label>
-          <Field name="firstName" component={renderTimePicker} type="text" />
+          <Field name="firstName" component={TimePicker} type="text" />
         </FieldRow>
       </FieldsWrapper>
       <Footer>

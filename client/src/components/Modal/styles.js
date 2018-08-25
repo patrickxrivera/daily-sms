@@ -47,8 +47,8 @@ export const FieldStyled = styled(Field)`
 
   &:focus {
     outline: 0;
-    border-color: ${colors.primary};
-    box-shadow: 0 0 1px 0 ${colors.primary};
+    border-color: ${({ focusColorOff }) => (focusColorOff ? 'none' : colors.primary)};
+    box-shadow: ${({ focusColorOff }) => (focusColorOff ? 'none' : `0 0 1px 0 ${colors.primary}`)};
   }
 `;
 
@@ -99,6 +99,7 @@ export const Form = styled.form`
 `;
 
 export const DayPickerWrapper = styled.div`
+  border: 2px solid #e9ebeb;
   background-color: rgb(255, 255, 255);
   position: absolute;
   padding: 0.5rem;

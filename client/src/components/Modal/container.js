@@ -11,8 +11,19 @@ class ModalContainer extends Component {
     this.setState({ showCheckbox: true });
   };
 
+  handleCloseCheckbox = () => {
+    this.setState({ showCheckbox: false });
+  };
+
   render() {
-    return <Modal {...this.state} {...this.props} handleOpenCheckbox={this.handleOpenCheckbox} />;
+    return (
+      <Modal
+        {...this.state}
+        {...this.props}
+        handleOpenCheckbox={this.handleOpenCheckbox}
+        handleCloseCheckbox={this.handleCloseCheckbox}
+      />
+    );
   }
 }
 

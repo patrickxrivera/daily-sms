@@ -2,6 +2,7 @@ import styled, { injectGlobal } from 'styled-components';
 import { createMuiTheme } from '@material-ui/core/styles';
 
 import font from 'utils/font';
+import colors from 'utils/colors';
 
 export const AppStyles = injectGlobal`
   html, body {
@@ -11,6 +12,11 @@ export const AppStyles = injectGlobal`
 `;
 
 export const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: colors.primary
+    }
+  },
   typography: {
     // Use the system font instead of the default Roboto font.
     fontFamily: [
