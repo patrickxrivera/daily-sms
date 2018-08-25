@@ -19,7 +19,13 @@ class BaseTestCase(TestCase):
         db.session.remove()
         db.drop_all()
 
-    def _post(self, endpoint, data=None, content_type='application/json', token=None):
+    def _put(self, endpoint, data=None, content_type='application/json'):
+        response = self.client.put(
+            endpoint, data=json.dumps(data), content_type=content_type)
+
+        return {**self.to_json(response), 'status_code': response.status_code}
+
+    def _post(self, endpoint, data=None, content_type='application/json'):
         response = self.client.post(
             endpoint, data=json.dumps(data), content_type=content_type)
 
@@ -31,6 +37,9 @@ class BaseTestCase(TestCase):
         response = self.client.post(endpoint, headers=headers)
 
         return {**self.to_json(response), 'status_code': response.status_code}
+
+    def _request():
+        pass
 
     @staticmethod
     def to_json(response):

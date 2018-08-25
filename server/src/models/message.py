@@ -1,10 +1,11 @@
 from sqlalchemy import Column, Integer, String, Boolean
 from sqlalchemy import ForeignKey
 from src.errors import DbError, TokenGenerationError
+from .base import DailySMSModel
 from src.extensions import db
 
 
-class MessageModel(db.Model):
+class MessageModel(DailySMSModel, db.Model):
     __tablename__ = 'messages'
 
     id = Column(Integer, primary_key=True)
@@ -33,20 +34,28 @@ class MessageModel(db.Model):
     def frequency(self, days):
         self._frequency = days
 
-    def save_to_db(self):
-        # try:
-        db.session.add(self)
-        db.session.commit()
-        # except:
-        #     raise DbError('Error saving to db.')
+    @classmethod
+    def find_by_message_id(cls, message_id):
+        return cls.query.filter_by(id=message_id).first()
 
-    def delete_from_db(self):
-        try:
-            db.session.delete(self)
-            db.session.commit()
-        except:
-            raise DbError('Error saving to db.')
+    # def save_to_db(self):
+    #     try:
+    #         db.session.add(self)
+    #         db.session.commit()
+    #     except OperationalError as e:
+    #         print(e)
+    #         db.session.rollback()
+    #         raise DbError('Error saving to db.')
 
-    def __repr__(self):
-        """For better error messages"""
-        return f'<{self.__class__.__name__} {self.id}>'
+    # def delete_from_db(self):
+    #     try:
+    #         db.session.delete(self)
+    #         db.session.commit()
+    #     except OperationalError as e:
+    #         print(e)
+    #         db.session.rollback()
+    #         raise DbError('Error saving to db.')
+
+    # def __repr__(self):
+    #     """For better error messages"""
+    #     return f'<{self.__class__.__name__}>'

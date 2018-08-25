@@ -2,9 +2,10 @@ from flask_jwt_extended import create_access_token, create_refresh_token
 from sqlalchemy import Column, Integer, String, Boolean
 from src.errors import DbError, TokenGenerationError
 from src.extensions import db
+from .base import DailySMSModel
 
 
-class UserModel(db.Model):
+class UserModel(DailySMSModel, db.Model):
     __tablename__ = 'users'
 
     id = Column(Integer, primary_key=True)
@@ -60,20 +61,24 @@ class UserModel(db.Model):
         self.save_to_db()
         return self.json_id
 
-    def save_to_db(self):
-        try:
-            db.session.add(self)
-            db.session.commit()
-        except:
-            raise DbError('Error saving to db.')
+    # def save_to_db(self):
+    #     try:
+    #         db.session.add(self)
+    #         db.session.commit()
+    #     except OperationalError as e:
+    #         print(e)
+    #         db.session.rollback()
+    #         raise DbError('Error saving to db.')
 
-    def delete_from_db(self):
-        try:
-            db.session.delete(self)
-            db.session.commit()
-        except:
-            raise DbError('Error deleting from db.')
+    # def delete_from_db(self):
+    #     try:
+    #         db.session.delete(self)
+    #         db.session.commit()
+    #     except OperationalError as e:
+    #         print(e)
+    #         db.session.rollback()
+    #         raise DbError('Error saving to db.')
 
-    def __repr__(self):
-        """For better error messages"""
-        return f'<{self.__class__.__name__} {self.phone_number}>'
+    # def __repr__(self):
+    #     """For better error messages"""
+    #     return f'<{self.__class__.__name__}>'
