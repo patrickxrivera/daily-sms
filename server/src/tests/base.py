@@ -25,9 +25,21 @@ class BaseTestCase(TestCase):
 
         return {**self.to_json(response), 'status_code': response.status_code}
 
+    def _get(self, endpoint, content_type='application/json'):
+        response = self.client.get(
+            endpoint, content_type=content_type)
+
+        return {**self.to_json(response), 'status_code': response.status_code}
+
     def _post(self, endpoint, data=None, content_type='application/json'):
         response = self.client.post(
             endpoint, data=json.dumps(data), content_type=content_type)
+
+        return {**self.to_json(response), 'status_code': response.status_code}
+
+    def _delete(self, endpoint, content_type='application/json'):
+        response = self.client.delete(
+            endpoint, content_type=content_type)
 
         return {**self.to_json(response), 'status_code': response.status_code}
 

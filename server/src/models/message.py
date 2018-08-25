@@ -34,6 +34,16 @@ class MessageModel(DailySMSModel, db.Model):
     def frequency(self, days):
         self._frequency = days
 
+    @property
+    def json(self):
+        return {
+            'id': self.id,
+            'text': self.text,
+            'send_time': self.send_time,
+            'active': self.active,
+            'frequency': self.frequency
+        }
+
     @classmethod
     def find_by_message_id(cls, message_id):
         return cls.query.filter_by(id=message_id).first()

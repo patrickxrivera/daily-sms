@@ -2,7 +2,7 @@ from flask_restful import Resource, reqparse
 
 from src.errors import DbError, UpdateMessageError, DeleteMessageError
 from src.utils import add_to_parser
-from src.models import MessageModel
+from src.models import MessageModel, UserModel
 
 
 class Message(Resource):
@@ -24,7 +24,7 @@ class Message(Resource):
         return {'success': 'ok'}, 201
 
     @classmethod
-    def put(cls, user_id, message_id):
+    def put(cls, _, message_id):
         """Update message fields"""
         data = cls.parser.parse_args()
         valid_fields = {k: v for k, v in data.items() if v != None}
@@ -38,19 +38,16 @@ class Message(Resource):
 
         return {'success': 'ok'}, 202
 
-    def delete(self, user_id, message_id):
+    def delete(self, _, message_id):
         """Delete specific message"""
-        for idx, message in enumerate(db):
-            if self._is_target_message(message, user_id, message_id):
-                self._delete_message(idx)
-                break
-        else:
-            raise DeleteMessageError(user_id, message_id)
+        message = MessageModel.find_by_message_id(message_id)
+
+        message.delete_from_db()
 
         return {'success': 'ok'}, 202
 
 
 class MessageList(Resource):
-    def get(self, id):
+    def get(self, user_id):
         """Return all messages for given user"""
-        return [message for message in db if message['user_id'] == id]
+        return {'messages': [message.json for message in UserModel.find_by_user_id(user_id).messages]}
