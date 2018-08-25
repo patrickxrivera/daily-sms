@@ -24,7 +24,7 @@ class Message(Resource):
         return {'success': 'ok'}, 201
 
     @classmethod
-    def put(cls, _, message_id):
+    def put(cls, user_id, message_id):
         """Update message fields"""
         data = cls.parser.parse_args()
         valid_fields = {k: v for k, v in data.items() if v != None}
@@ -38,7 +38,7 @@ class Message(Resource):
 
         return {'success': 'ok'}, 202
 
-    def delete(self, _, message_id):
+    def delete(self, user_id, message_id):
         """Delete specific message"""
         message = MessageModel.find_by_message_id(message_id)
 

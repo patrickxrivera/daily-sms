@@ -19,6 +19,7 @@ class BaseTestCase(TestCase):
         db.session.remove()
         db.drop_all()
 
+    # TODO: DRY these requests up once you fix delete
     def _put(self, endpoint, data=None, content_type='application/json'):
         response = self.client.put(
             endpoint, data=json.dumps(data), content_type=content_type)
