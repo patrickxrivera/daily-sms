@@ -2,3 +2,5 @@
 env
 .env
 .pylintrc
+__pycache__
+.pyc
