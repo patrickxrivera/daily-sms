@@ -13,6 +13,8 @@ class UserModel(db.Model):
     verified = Column(Boolean, nullable=False, default=False)
     authy_user_id = Column(String, nullable=True)
 
+    messages = db.relationship('MessageModel', lazy='dynamic')
+
     def __init__(self, phone_number, country_code):
         self.phone_number = phone_number
         self.country_code = country_code
@@ -70,7 +72,7 @@ class UserModel(db.Model):
             db.session.delete(self)
             db.session.commit()
         except:
-            raise DbError('Error saving to db.')
+            raise DbError('Error deleting from db.')
 
     def __repr__(self):
         """For better error messages"""

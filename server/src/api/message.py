@@ -2,27 +2,24 @@ from flask_restful import Resource, reqparse
 
 from src.errors import DbError, UpdateMessageError, DeleteMessageError
 from src.utils import add_to_parser
+from src.models import MessageModel
 
 
 class Message(Resource):
     parser = reqparse.RequestParser()
     add_to_parser(parser, 'text', str)
     add_to_parser(parser, 'send_time', str)
-    add_to_parser(parser, 'frequency', list)
+    add_to_parser(parser, 'frequency', str)
     add_to_parser(parser, 'active', bool)
 
     def post(self, user_id):
         """Create a daily message"""
         data = Message.parser.parse_args()
 
-        new_message = {**data, 'user_id': user_id}
+        message = MessageModel(user_id, **data)
+        message.save_to_db()
 
-        try:
-            db.append(new_message)
-        except RuntimeError:
-            raise DBError('Error saving to DB.')
-
-        return new_message, 201
+        return {'success': 'ok'}, 201
 
     def put(self, user_id, message_id):
         """Update message fields"""

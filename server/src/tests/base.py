@@ -1,3 +1,4 @@
+import json
 from flask_testing import TestCase
 
 from src import create_app, db
@@ -17,3 +18,20 @@ class BaseTestCase(TestCase):
     def tearDown(self):
         db.session.remove()
         db.drop_all()
+
+    def _post(self, endpoint, data=None, content_type='application/json', token=None):
+        response = self.client.post(
+            endpoint, data=json.dumps(data), content_type=content_type)
+
+        return {**self.to_json(response), 'status_code': response.status_code}
+
+    def _post_w_headers(self, endpoint, access_token=''):
+        headers = dict(Authorization=f'Bearer {access_token}')
+
+        response = self.client.post(endpoint, headers=headers)
+
+        return {**self.to_json(response), 'status_code': response.status_code}
+
+    @staticmethod
+    def to_json(response):
+        return json.loads(response.data.decode())
