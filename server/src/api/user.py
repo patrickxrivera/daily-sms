@@ -71,9 +71,9 @@ class UserLogin(Resource):
 
     add_to_parser(parser, 'phone_number', int, required=True)
 
-    @staticmethod
-    def post():
-        data = parser.parse_args()
+    @classmethod
+    def post(cls):
+        data = cls.parser.parse_args()
 
         current_user = UserModel.find_by_phone_number(data['phone_number'])
 

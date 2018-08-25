@@ -17,8 +17,6 @@ class BaseConfig:
     JWT_BLACKLIST_TOKEN_CHECKS = ['access', 'refresh']
     JWT_REFRESH_TOKEN_EXPIRES = False
 
-    TWILIO_ACCOUNT_SID = os.environ.get('TWILIO_ACCOUNT_SID')
-    TWILIO_AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN')
     TWILIO_NUMBER = os.environ.get('TWILIO_NUMBER')
 
 
@@ -26,15 +24,21 @@ class DevelopmentConfig(BaseConfig):
     """Development configuration"""
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
+    TWILIO_ACCOUNT_SID = os.environ.get('TWILIO_ACCOUNT_SID')
+    TWILIO_AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN')
 
 
 class TestingConfig(BaseConfig):
     """Testing configuration"""
     TESTING = True
     PRESERVE_CONTEXT_ON_EXCEPTION = False
+    TWILIO_ACCOUNT_SID = os.environ.get('TWILIO_TEST_ACCOUNT_SID')
+    TWILIO_AUTH_TOKEN = os.environ.get('TWILIO_TEST_AUTH_TOKEN')
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_TEST_URL')
 
 
 class ProductionConfig(BaseConfig):
     """Production configuration"""
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
+    TWILIO_ACCOUNT_SID = os.environ.get('TWILIO_ACCOUNT_SID')
+    TWILIO_AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN')

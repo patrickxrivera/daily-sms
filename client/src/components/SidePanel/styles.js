@@ -12,7 +12,7 @@ export const Heading = styled.div`
   color: #bdc3c7;
   text-transform: uppercase;
   margin-bottom: 1.5rem;
-  opacity: 0.67;
+  opacity: 0.8;
   letter-spacing: 0.5px;
 `;
 
@@ -20,7 +20,8 @@ export const MenuItem = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 1.3rem;
-  opacity: ${({ isSelected }) => (isSelected ? '1' : '.7')};
+  color: #3b364e;
+  opacity: ${({ isSelected }) => (isSelected ? '1' : '.5')};
 
   &:hover {
     opacity: 1;

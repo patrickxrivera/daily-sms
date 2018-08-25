@@ -55,30 +55,6 @@ export const Subtext = styled.div`
   margin-bottom: 8px;
 `;
 
-export const Button = styled.button`
-  color: #fff;
-  padding: 0.6em 0.8em;
-  outline: 0;
-  font-size: 1rem;
-  font-weight: 500;
-  line-height: 1.2222222;
-  text-align: center;
-  border: none;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px 0 rgba(14, 30, 37, 0.12);
-  cursor: pointer;
-  background: ${colors.primary};
-  width: 100%;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  &:hover {
-    background: rgba(9, 132, 280, 1);
-  }
-`;
-
 export const ErrorText = styled.div`
   color: #dc3545;
   margin: -1.4rem 0 0.4rem;
