@@ -1,9 +1,6 @@
-import json
-from src import db
-from src.models.user import UserModel
 from src.tests.base import BaseTestCase
 
-user_data = {'phone_number': 111111111, 'country_code': 1}
+user_data = {'phone_number': 9046377834, 'country_code': 1}
 empty_phone_number = {'country_code': 1}
 empty_country_code = {'phone_number': 1111111}
 empty_request = {}
@@ -22,20 +19,6 @@ class TestUserResource(BaseTestCase):
         self.assertEqual(data['status_code'], 201)
         self.assertTrue('access_token' in data)
         self.assertTrue('refresh_token' in data)
-
-    def test_registration_authy(self):
-        """Ensure user receives authy_user_id during registration"""
-        data = self._post(register_route, user_data)
-
-        self.assertEqual(data['status_code'], 201)
-        self.assertTrue(data['authy_user_id'] is not None)
-
-    def test_registration_verification_status(self):
-        """Ensure verification status is false during initial registration"""
-        data = self._post(register_route, user_data)
-
-        self.assertEqual(data['status_code'], 201)
-        self.assertFalse(data['verified'])
 
     def test_registration_duplicate_user(self):
         """Ensure user receives error message when registering duplicate phone number"""
@@ -104,23 +87,6 @@ class TestUserResource(BaseTestCase):
         self.assertEqual(data['status_code'], 422)
         self.assertEqual(
             data['msg'], "Bad Authorization header. Expected value 'Bearer <JWT>'")
-
-    def _post(self, endpoint, data=None, content_type='application/json', token=None):
-        response = self.client.post(
-            endpoint, data=json.dumps(data), content_type=content_type)
-
-        return {**self.to_json(response), 'status_code': response.status_code}
-
-    def _post_w_headers(self, endpoint, access_token=''):
-        headers = dict(Authorization=f'Bearer {access_token}')
-
-        response = self.client.post(endpoint, headers=headers)
-
-        return {**self.to_json(response), 'status_code': response.status_code}
-
-    @staticmethod
-    def to_json(response):
-        return json.loads(response.data.decode())
 
 
 if __name__ == 'main':

@@ -17,4 +17,4 @@ def init_api(app):
     api.add_resource(MessageWorker, '/sms')
     api.add_resource(Message, '/message/<int:user_id>',
                      '/message/<int:user_id>/<int:message_id>')
-    api.add_resource(MessageList, '/messages/<int:id>')
+    api.add_resource(MessageList, '/messages/<int:user_id>')

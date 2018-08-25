@@ -5,12 +5,12 @@ import {
   FilledBackground,
   InputWrapper,
   Input,
-  Button,
   CountryCodeText,
   Line,
   Subtext,
   ErrorText
 } from '../SignUp/styles';
+import Button from 'components/Button';
 
 const LOADING_SIZE = 25;
 
