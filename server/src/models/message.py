@@ -12,7 +12,7 @@ class MessageModel(DailySMSModel, db.Model):
     text = Column(String, nullable=False)
     send_time = Column(String, nullable=False)
     active = Column(Boolean, nullable=False, default=True)
-    _frequency = Column(String, nullable=False)
+    frequency = Column(String, nullable=False)
 
     user_id = Column(Integer, ForeignKey('users.id'))
     user = db.relationship('UserModel')
@@ -25,14 +25,6 @@ class MessageModel(DailySMSModel, db.Model):
 
         if active == None:
             self.active = True
-
-    @property
-    def frequency(self):
-        return [day for day in self._frequency.split(', ')]
-
-    @frequency.setter
-    def frequency(self, days):
-        self._frequency = days
 
     @property
     def json(self):

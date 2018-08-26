@@ -13,14 +13,13 @@ export const Wrapper = styled.div`
 `;
 
 export const TableWrapper = styled.table`
-  padding: 1rem;
   width: 100%;
   border-collapse: collapse;
 `;
 
 export const TableCell = styled.td`
   padding: 1rem;
-  text-align: ${({ align }) => (align ? align : 'default')};
+  text-align: ${({ align }) => (align ? align : 'center')};
   opacity: ${({ heading }) => (heading ? '.6' : '1')};
 `;
 

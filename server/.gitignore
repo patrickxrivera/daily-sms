@@ -3,3 +3,5 @@ env
 .pylintrc
 __pycache__
 .pyc
+/src/data.db
+/src/test-data.db

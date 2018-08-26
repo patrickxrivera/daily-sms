@@ -5,12 +5,12 @@ user_data = {'phone_number': 9046377834, 'country_code': 1}
 new_message = {
     'text': 'Rise and shine!',
     'send_time': '6:00 AM PST',
-    'frequency': 'Monday, Tuesday, Wednesday'
+    'frequency': 'Every day'
 }
 second_message = {
     'text': 'Anotha one.',
     'send_time': '8:00 AM PST',
-    'frequency': 'Tuesday, Wednesday'
+    'frequency': 'Weekends'
 }
 update_message = {'send_time': '7:00 AM PST'}
 create_message_route = '/api/message/1'

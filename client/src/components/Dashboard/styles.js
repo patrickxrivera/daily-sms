@@ -14,7 +14,7 @@ export const TableName = styled.div`
 `;
 
 export const ContentWrapper = styled.div`
-  margin: 0 2rem;
+  margin: 0 6rem;
   width: 100%;
 `;
 

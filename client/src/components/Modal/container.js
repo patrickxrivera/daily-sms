@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import Modal from './';
+import { getUserId } from 'redux/auth/selectors';
+import { addMessage } from 'redux/messages/actions';
+import { clearFields } from 'redux/form/actions';
 
 const DAYS = ['Every day', 'Weekdays', 'Weekends'];
 
@@ -36,8 +40,13 @@ class ModalContainer extends Component {
     changeFn('frequency', name);
   };
 
-  handleFormSubmit = (fields) => {
-    console.log({ fields });
+  handleFormSubmit = async (fields) => {
+    const { addMessage, handleCloseModal, clearFields, userId } = this.props;
+
+    await addMessage({ ...fields, user_id: userId });
+
+    handleCloseModal();
+    clearFields();
   };
 
   render() {
@@ -55,4 +64,8 @@ class ModalContainer extends Component {
   }
 }
 
-export default ModalContainer;
+const mapStateToProps = (state) => ({
+  userId: getUserId(state)
+});
+
+export default connect(mapStateToProps, { addMessage, clearFields })(ModalContainer);

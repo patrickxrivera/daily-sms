@@ -1,56 +1,50 @@
 import React from 'react';
+import Switch from 'react-toggle-switch';
 
 import { Wrapper, TableWrapper, TableRow, TableCell, More } from './styles';
 
-const messages = [
-  {
-    id: 1,
-    status: 'On',
-    text: '1) 3 LeetCode medium problems, 2) System Design problem...',
-    frequency: 'Daily',
-    send_at: '8:00am',
-    created_at: '8/21'
-  },
-  {
-    id: 2,
-    status: 'On',
-    text: 'You are beautiful, in every single way.',
-    frequency: 'Weekdays',
-    send_at: '8:00am',
-    created_at: '8/21'
-  }
-];
+import { shorten } from './helpers';
 
-const renderMessage = ({ id, status, text, frequency, send_at, created_at }) => (
-  <TableRow key={id}>
-    <TableCell>{status}</TableCell>
-    <TableCell>{text}</TableCell>
+import 'react-toggle-switch/dist/css/switch.min.css';
+import './stylesheet.css';
+
+const renderMessage = (on, toggleSwitch) => ({
+  id,
+  active,
+  text,
+  frequency,
+  send_time,
+  created_at
+}) => (
+  <TableRow key={`${id}-${text}`}>
+    <TableCell>
+      <Switch on={on} onClick={toggleSwitch} />
+    </TableCell>
+    <TableCell align="left" style={{ width: '300px' }}>
+      {shorten(text)}
+    </TableCell>
     <TableCell>{frequency}</TableCell>
-    <TableCell>{send_at}</TableCell>
-    <TableCell>{created_at}</TableCell>
+    <TableCell>{send_time}</TableCell>
     <TableCell>
       <More />
     </TableCell>
   </TableRow>
 );
 
-const Table = () => (
+const Table = ({ messages, on, toggleSwitch }) => (
   <Wrapper>
     <TableWrapper>
       <tbody>
         <TableRow noBorder>
           <TableCell heading>Status</TableCell>
-          <TableCell heading align="left">
+          <TableCell heading align="left" style={{ maxWidth: '150px' }}>
             Text
           </TableCell>
           <TableCell heading>Frequency</TableCell>
-          <TableCell heading align="left">
-            Send At
-          </TableCell>
-          <TableCell heading>Created</TableCell>
+          <TableCell heading>Send At</TableCell>
           <TableCell />
         </TableRow>
-        {messages.map(renderMessage)}
+        {messages.map(renderMessage(on, toggleSwitch))}
       </tbody>
     </TableWrapper>
   </Wrapper>
