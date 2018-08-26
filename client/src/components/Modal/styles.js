@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Textarea from 'react-autosize-textarea';
 import { Field } from 'redux-form';
 
 import colors from 'utils/colors';
@@ -8,13 +9,12 @@ export const style = {
   content: {
     width: '450px',
     height: '424px',
-    margin: '20% auto 0',
+    margin: 'auto',
     fontFamily: `${font.default}`,
     boxShadow: '0 0 0 1px rgba(0,0,0,.07), 0 2px 15px rgba(84,96,103,.25)',
     background: '#f7fafc',
     borderRadius: '4px',
-    padding: 'none',
-    position: 'none'
+    padding: 'none'
   },
   overlay: {
     backgroundColor: 'rgba(82,95,127,.25)'
@@ -39,34 +39,43 @@ export const FieldRow = styled.div`
 export const FieldStyled = styled(Field)`
   box-sizing: border-box;
   display: block;
+  font-size: 14px;
   height: 30px;
   padding: 6px 14px;
   border: 2px solid #e9ebeb;
   border-radius: 4px;
   background: 0 0;
+  color: inherit;
 
   &:focus {
     outline: 0;
     border-color: ${({ focusColorOff }) => (focusColorOff ? 'none' : colors.primary)};
     box-shadow: ${({ focusColorOff }) => (focusColorOff ? 'none' : `0 0 1px 0 ${colors.primary}`)};
   }
+
+  &::-webkit-input-placeholder {
+    opacity: 0.7;
+  }
 `;
 
 export const InputStyled = styled.div`
   box-sizing: border-box;
   display: flex;
+  font-size: 14px;
   align-items: center
-  height: 30px;
-  padding: 6px 14px;
-  border: 2px solid #e9ebeb;
+  height: ${({ resize }) => (resize ? 'none' : '30px')};
+  min-height: ${({ resize }) => (resize ? '29px' : 'none')}
+  padding: 2px 10px;
+  border: ${({ renderErrorText }) => (renderErrorText ? '2px solid #dc3545' : `2px solid #e9ebeb`)};
   border-radius: 4px;
   background: 0 0;
-  width: 157.5px;
+  width: 179px;
 
   &:focus {
     outline: 0;
-    border-color: ${colors.primary};
-    box-shadow: 0 0 1px 0 ${colors.primary};
+    box-shadow: ${({ renderErrorText }) =>
+      renderErrorText ? '0 0 0 0.2rem rgba(220,53,69,.25)' : `0 0 1px 0 ${colors.primary}`};
+    border-color: ${({ renderErrorText }) => (renderErrorText ? '#dc3545' : `${colors.primary}`)};
   }
 `;
 
@@ -102,11 +111,40 @@ export const DayPickerWrapper = styled.div`
   border: 2px solid #e9ebeb;
   background-color: rgb(255, 255, 255);
   position: absolute;
-  padding: 0.5rem;
-  right: 365px;
-  top: 430px;
   z-index: 9999;
   box-shadow: 0 7px 14px 0 rgba(59, 65, 94, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07);
   border-radius: 4px;
-  width: 140px;
+  width: 164px;
+  padding: 6px;
+  top: 226px;
+  right: 76px;
+`;
+
+export const TextareaStyled = styled(Textarea)`
+  border: none;
+  background: inherit;
+  margin-left: 0px;
+  margin-right: 0px;
+  resize: none;
+  font-size: 14px;
+  height: 17px;
+
+  &:focus {
+    outline: none;
+  }
+`;
+
+export const FrequencyInputStyled = styled.input`
+  font-size: 14px;
+  border: none;
+  background: inherit;
+  width: 102px;
+
+  &:focus {
+    outline: none;
+  }
+
+  &::-webkit-input-placeholder {
+    opacity: 0.7;
+  }
 `;

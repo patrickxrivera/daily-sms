@@ -9,64 +9,117 @@ import {
   Form,
   Heading,
   FieldsWrapper,
+  InputStyled,
+  TextareaStyled,
   FieldRow,
   Label,
   FieldStyled,
   Footer,
+  FrequencyInputStyled,
   style
 } from './styles';
+
+const renderTextarea = ({ input, meta: { touched, error } }) => (
+  <InputStyled resize renderErrorText={touched && error}>
+    <TextareaStyled autoFocus {...input} />
+    <span style={{ fontSize: '12px', color: '#cc0000' }}>{touched && error}</span>
+  </InputStyled>
+);
+
+const FREQUENCY = ['Every day', 'Weekdays', 'Weekends'];
+
+const required = (value) => (value || typeof value === 'number' ? null : 'Required');
+
+const validFrequency = (value) => (FREQUENCY.includes(value) ? null : 'Invalid');
+
+const renderFrequency = ({ input, meta: { touched, error } }) => (
+  <InputStyled renderErrorText={touched && error}>
+    <FrequencyInputStyled {...input} placeholder="How often?" />
+    <div style={{ fontSize: '12px', color: '#cc0000' }}>{touched && error}</div>
+  </InputStyled>
+);
 
 const Modal = ({
   showModal,
   showCheckbox,
   handleCloseModal,
   handleSubmit,
+  handleFormSubmit,
   handleOpenCheckbox,
+  handleCloseCheckbox,
   ...props
-}) => (
-  <ReactModal isOpen={showModal} onRequestClose={handleCloseModal} style={{ ...style }}>
-    {showCheckbox && <DayPicker {...props} />}
-    <Form onSubmit={handleSubmit} autocomplete="off">
-      <Heading>Create a new message</Heading>
-      <FieldsWrapper>
-        <FieldRow>
-          <Label htmlFor="firstName">Text</Label>
-          <FieldStyled name="firstName" component="input" type="text" autocomplete="off" />
-        </FieldRow>
-        <FieldRow>
-          <Label htmlFor="firstName">Frequency</Label>
-          <FieldStyled
-            focusColorOff
-            onClick={handleOpenCheckbox}
-            name="firstName"
-            component="input"
-            type="text"
-          />
-        </FieldRow>
-        <FieldRow>
-          <Label htmlFor="firstName">Send At</Label>
-          <Field name="firstName" component={TimePicker} type="text" />
-        </FieldRow>
-      </FieldsWrapper>
-      <Footer>
-        <Button
-          width="70px"
-          fontSize="13px"
-          height="32px"
-          style={{ marginRight: '8px' }}
-          bgColor="#fff"
-          color="rgb(4, 4, 2)"
-          hoverBgColor="rgba(235, 87, 87, 0.03)"
-          border="1px solid #e9ebeb"
-          onClick={handleCloseModal}>
-          Cancel
-        </Button>
-        <Button width="125px" fontSize="13px" height="30px">
-          Create Message
-        </Button>
-      </Footer>
-    </Form>
-  </ReactModal>
-);
+}) => {
+  return (
+    <ReactModal
+      isOpen={showModal}
+      onRequestClose={handleCloseModal}
+      style={{ ...style }}
+      ariaHideApp={false}>
+      {showCheckbox && <DayPicker handleCloseCheckbox={handleCloseCheckbox} {...props} />}
+      <Form onSubmit={handleSubmit(handleFormSubmit)} autocomplete="off">
+        <Heading>Create a new message</Heading>
+        <FieldsWrapper>
+          <FieldRow>
+            <Label htmlFor="text">Text</Label>
+            <FieldStyled
+              name="text"
+              component={renderTextarea}
+              type="text"
+              validate={required}
+              autocomplete="off"
+              placeholder="Your message"
+              style={{ maxWidth: '178px', resize: 'none' }}
+            />
+          </FieldRow>
+          <FieldRow>
+            <Label htmlFor="frequency">Frequency</Label>
+            <div onFocus={handleOpenCheckbox}>
+              <FieldStyled
+                focusColorOff
+                name="frequency"
+                component={renderFrequency}
+                placeholder="How often?"
+                validate={[required, validFrequency]}
+              />
+            </div>
+          </FieldRow>
+          <FieldRow>
+            <Label htmlFor="send_at">Send At</Label>
+            <Field
+              name="send_at"
+              component={TimePicker}
+              validate={required}
+              type="text"
+              placeholder="What time?"
+            />
+          </FieldRow>
+        </FieldsWrapper>
+        <Footer>
+          <Button
+            type="button"
+            width="70px"
+            fontSize="13px"
+            height="32px"
+            style={{ marginRight: '8px' }}
+            bgColor="#fff"
+            color="rgb(4, 4, 2)"
+            hoverBgColor="rgba(235, 87, 87, 0.03)"
+            border="1px solid #e9ebeb"
+            onClick={handleCloseModal}>
+            Cancel
+          </Button>
+          <Button
+            width="125px"
+            fontSize="13px"
+            height="30px"
+            type="button"
+            onClick={handleSubmit(handleFormSubmit)}>
+            Create Message
+          </Button>
+        </Footer>
+      </Form>
+    </ReactModal>
+  );
+};
 
 export default reduxForm({ form: 'create_message' })(Modal);

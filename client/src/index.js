@@ -4,6 +4,8 @@ import { render } from 'react-dom';
 import store from './redux';
 import App from 'components/App';
 
+window.store = store;
+
 render(
   <Provider store={store}>
     <App />
