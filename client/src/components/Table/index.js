@@ -1,14 +1,16 @@
 import React from 'react';
 import Switch from 'react-toggle-switch';
 
-import { Wrapper, TableWrapper, TableRow, TableCell, More } from './styles';
-
-import { shorten } from './helpers';
+import { Edit, Trash } from 'components/Icon';
+import { Wrapper, TableWrapper, TableRow, TableCell } from './styles';
+import { shorten, formatTime } from './helpers';
 
 import 'react-toggle-switch/dist/css/switch.min.css';
 import './stylesheet.css';
 
-const renderMessage = (on, toggleSwitch) => ({
+const ICON_SIZE = 18;
+
+const renderMessage = ({ toggleSwitch, handleDeleteClick }) => ({
   id,
   active,
   text,
@@ -16,22 +18,25 @@ const renderMessage = (on, toggleSwitch) => ({
   send_time,
   created_at
 }) => (
-  <TableRow key={`${id}-${text}`}>
+  <TableRow key={id}>
     <TableCell>
-      <Switch on={on} onClick={toggleSwitch} />
+      <Switch on={active} onClick={toggleSwitch(id, active)} />
     </TableCell>
     <TableCell align="left" style={{ width: '300px' }}>
       {shorten(text)}
     </TableCell>
     <TableCell>{frequency}</TableCell>
-    <TableCell>{send_time}</TableCell>
+    <TableCell>{formatTime(send_time)}</TableCell>
     <TableCell>
-      <More />
+      <div style={{ display: 'flex' }}>
+        <Edit size={ICON_SIZE} />
+        <Trash size={ICON_SIZE} style={{ marginLeft: '10px' }} onClick={handleDeleteClick(id)} />
+      </div>
     </TableCell>
   </TableRow>
 );
 
-const Table = ({ messages, on, toggleSwitch }) => (
+const Table = ({ messages, ...rest }) => (
   <Wrapper>
     <TableWrapper>
       <tbody>
@@ -42,9 +47,9 @@ const Table = ({ messages, on, toggleSwitch }) => (
           </TableCell>
           <TableCell heading>Frequency</TableCell>
           <TableCell heading>Send At</TableCell>
-          <TableCell />
+          <TableCell style={{ width: '80px' }} />
         </TableRow>
-        {messages.map(renderMessage(on, toggleSwitch))}
+        {messages.map(renderMessage(rest))}
       </tbody>
     </TableWrapper>
   </Wrapper>

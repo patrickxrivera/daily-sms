@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import Dashboard from './';
+import { clearFields } from 'redux/form/actions';
 
 class DashboardContainer extends Component {
   state = {
@@ -13,6 +15,7 @@ class DashboardContainer extends Component {
 
   handleCloseModal = () => {
     this.setState({ showModal: false });
+    clearFields();
   };
 
   render() {
@@ -26,4 +29,4 @@ class DashboardContainer extends Component {
   }
 }
 
-export default DashboardContainer;
+export default connect(null, { clearFields })(DashboardContainer);

@@ -17,7 +17,7 @@ class MessageModel(DailySMSModel, db.Model):
     user_id = Column(Integer, ForeignKey('users.id'))
     user = db.relationship('UserModel')
 
-    def __init__(self, user_id, text, send_time, frequency, active):
+    def __init__(self, user_id, text, send_time, frequency, active=None):
         self.user_id = user_id
         self.text = text
         self.send_time = send_time
@@ -39,25 +39,3 @@ class MessageModel(DailySMSModel, db.Model):
     @classmethod
     def find_by_message_id(cls, message_id):
         return cls.query.filter_by(id=message_id).first()
-
-    # def save_to_db(self):
-    #     try:
-    #         db.session.add(self)
-    #         db.session.commit()
-    #     except OperationalError as e:
-    #         print(e)
-    #         db.session.rollback()
-    #         raise DbError('Error saving to db.')
-
-    # def delete_from_db(self):
-    #     try:
-    #         db.session.delete(self)
-    #         db.session.commit()
-    #     except OperationalError as e:
-    #         print(e)
-    #         db.session.rollback()
-    #         raise DbError('Error saving to db.')
-
-    # def __repr__(self):
-    #     """For better error messages"""
-    #     return f'<{self.__class__.__name__}>'

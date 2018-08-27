@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { MoreHorizontal } from 'react-feather';
 
 const BORDER_WIDTH = '1.95px';
 
@@ -29,13 +28,9 @@ export const TableRow = styled.tr`
   border-bottom: ${BORDER_WIDTH} solid #dcdde1;
   margin-bottom: 1rem;
   align-items: center;
-`;
-
-export const More = styled(MoreHorizontal)`
-  opacity: 0.8;
 
   &:hover {
-    opacity: 1;
+    background-color: #ecf0f1;
     transition: background 120ms ease-in;
     cursor: pointer;
   }

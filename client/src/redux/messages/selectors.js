@@ -1,1 +1,1 @@
-export const getMessages = ({ messages }) => messages.all;
+export const getMessagesFromClient = ({ messages }) => messages.all;

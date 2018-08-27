@@ -1,7 +1,7 @@
 import unittest
 from flask.cli import FlaskGroup
 from src import create_app, db
-from src.models.user import UserModel
+from src.models import UserModel, MessageModel
 
 app = create_app()
 
@@ -28,8 +28,15 @@ def test():
 @cli.command()
 def seed_db():
     """Seeds the database."""
-    db.session.add(UserModel(phone_number=1))
-    db.session.add(UserModel(phone_number=2))
+    seed_user = {'phone_number': '1', 'country_code': '1'}
+    seed_message_one = {'user_id': '1', 'text': 'Rise and shine!',
+                        'send_time': '08:30', 'frequency': 'Every day'}
+    seed_message_two = {'user_id': '1', 'text': 'Early bird gets the worm',
+                        'send_time': '05:30', 'frequency': 'Every day'}
+
+    db.session.add(UserModel(**seed_user))
+    db.session.add(MessageModel(**seed_message_one))
+    db.session.add(MessageModel(**seed_message_two))
     db.session.commit()
 
 
