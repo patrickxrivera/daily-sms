@@ -22,6 +22,8 @@ class ModalContainer extends Component {
     checkedDay: null
   };
 
+  initialState = this.state;
+
   handleOpenCheckbox = () => {
     this.setState({ showCheckbox: true });
   };
@@ -45,10 +47,14 @@ class ModalContainer extends Component {
   handleFormSubmit = async (fields) => {
     const { addMessage, handleCloseModal, clearFields, userId } = this.props;
 
-    await addMessage({ ...fields, user_id: userId });
-
+    addMessage({ ...fields, user_id: userId });
+    this.resetState();
     handleCloseModal();
     clearFields();
+  };
+
+  resetState = () => {
+    this.setState(this.initialState);
   };
 
   render() {
