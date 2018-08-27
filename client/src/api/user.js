@@ -26,6 +26,8 @@ export const registerUser = (userData) => {
 };
 
 const handleVerififyUserError = ({ response }) => {
+  if (!response) return 'Unknown error. Please try again.';
+
   const { message } = response.data;
 
   // TODO: figure out how to standardize the error message format on the backend

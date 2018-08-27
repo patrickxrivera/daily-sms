@@ -1,5 +1,5 @@
 from flask import jsonify
-from src.errors import Error
+from src.errors import DailySMSError
 from src.models.revoked_token import RevokedTokenModel
 
 
@@ -9,7 +9,7 @@ def init_decorators(app, db, jwt):
     def create_tables():
         db.create_all()
 
-    @app.errorhandler(Error)
+    @app.errorhandler(DailySMSError)
     def handle_error(error):
         response = jsonify(error.to_dict())
         response.status_code = error.status_code

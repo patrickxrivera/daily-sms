@@ -4,6 +4,7 @@ from flask_restplus import inputs
 from src.errors import DbError, UpdateMessageError, DeleteMessageError
 from src.utils import add_to_parser
 from src.models import MessageModel, UserModel
+from src.services import TwilioService
 
 
 class Message(Resource):
@@ -22,6 +23,11 @@ class Message(Resource):
         message = MessageModel(user_id, **data)
         message.save_to_db()
 
+        user = UserModel.find_by_user_id(user_id)
+
+        twilio = TwilioService()
+        twilio.send_add_message_success_sms(user.formatted_phone_number, data)
+
         return {'success': 'ok', 'message': message.json}, 201
 
     @classmethod
@@ -29,7 +35,7 @@ class Message(Resource):
         """Update message fields"""
         data = cls.parser.parse_args()
         valid_fields = {k: v for k, v in data.items() if v != None}
-        print(valid_fields)
+
         message = MessageModel.find_by_message_id(message_id)
 
         for key in valid_fields.keys():

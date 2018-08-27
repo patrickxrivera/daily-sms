@@ -32,6 +32,7 @@ class TableContainer extends Component {
         messages={this.props.messages}
         toggleSwitch={this.toggleSwitch}
         handleDeleteClick={this.handleDeleteClick}
+        handleOpenModal={this.props.handleOpenModal}
       />
     );
   }

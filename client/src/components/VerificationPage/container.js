@@ -56,7 +56,6 @@ class VerificationPageContainer extends Component {
     // TODO:
     // 1) save accessToken and refreshToken to redux store
     // 2) handle if user is already verified
-    console.log({ data });
     this.props.history.push(`/dashboard`);
   };
 

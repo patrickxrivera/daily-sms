@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { formatTime } from 'components/Table/helpers';
+
 const API_BASE = 'http://localhost:5000/api';
 const MESSAGE_ENDPOINT = `${API_BASE}/message`;
 const GET_MESSAGE_LIST_ENDPOINT = `${API_BASE}/messages`;
@@ -11,7 +13,10 @@ const handleError = (err) => {
 
 export const addMessage = (message) =>
   axios
-    .post(`${MESSAGE_ENDPOINT}/${message.user_id}`, message)
+    .post(`${MESSAGE_ENDPOINT}/${message.user_id}`, {
+      ...message,
+      send_time: formatTime(message.send_time)
+    })
     .then(({ data }) => data)
     .catch(handleError);
 

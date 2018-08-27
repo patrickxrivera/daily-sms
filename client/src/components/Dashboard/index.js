@@ -17,7 +17,7 @@ const Dashboard = ({ handleOpenModal, ...rest }) => (
         </Button>
         <ModalContainer {...rest} />
       </HeadingWrapper>
-      <TableContainer />
+      <TableContainer handleOpenModal={handleOpenModal} />
     </ContentWrapper>
   </Wrapper>
 );

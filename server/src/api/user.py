@@ -39,7 +39,7 @@ class UserRegistration(Resource):
 class Verify(Resource):
     parser = reqparse.RequestParser()
 
-    add_to_parser(parser, 'verification_code', int, required=True)
+    add_to_parser(parser, 'verification_code', str, required=True)
 
     @classmethod
     def post(cls, user_id):
@@ -50,11 +50,12 @@ class Verify(Resource):
             raise UserNotFoundError('Invalid user ID.')
 
         authy_service = AuthyService()
+        confirmation = authy_service.confirm_phone_number(
+            user, data['verification_code'])
 
-        if not authy_service.confirm_phone_number(user, data['verification_code']):
-            # TODO: create more accurate error message based on error that ocurred
+        if not confirmation['success']:
             raise InvalidVerificationCodeError(
-                'Verification code must be between 6 and 12 characters.')
+                confirmation['message'])
 
         user.verified = True
         user.save_to_db()

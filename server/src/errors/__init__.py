@@ -1,4 +1,4 @@
-class Error(Exception):
+class DailySMSError(Exception):
     """Base class for exceptions in this API."""
     status_code = 400
 
@@ -31,33 +31,37 @@ class DeleteMessageError(MessageError):
     pass
 
 
-class ExistingUserError(Error):
+class ExistingUserError(DailySMSError):
     pass
 
 
-class InvalidLoginError(Error):
+class InvalidLoginError(DailySMSError):
     pass
 
 
-class DbError(Error):
+class DbError(DailySMSError):
     pass
 
 
-class TokenGenerationError(Error):
+class TokenGenerationError(DailySMSError):
     pass
 
 
-class VerificationCodeNotSentError(Error):
+class VerificationCodeNotSentError(DailySMSError):
     pass
 
 
-class UserNotFoundError(Error):
+class UserNotFoundError(DailySMSError):
     pass
 
 
-class FailedVerificationError(Error):
+class FailedVerificationError(DailySMSError):
     pass
 
 
-class InvalidVerificationCodeError(Error):
+class InvalidVerificationCodeError(DailySMSError):
+    pass
+
+
+class TwilioServiceError(DailySMSError):
     pass

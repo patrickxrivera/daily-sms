@@ -10,10 +10,10 @@ class AuthySettings:
 
 class TwilioSettings:
     def account_sid():
-        return os.environ.get('TWILIO_TEST_ACCOUNT_SID')
+        return os.environ.get('TWILIO_ACCOUNT_SID')
 
     def auth_token():
-        return os.environ.get('TWILIO_TEST_AUTH_TOKEN')
+        return os.environ.get('TWILIO_AUTH_TOKEN')
 
     def phone_number():
         return os.environ.get('TWILIO_NUMBER')

@@ -33,17 +33,11 @@ class AuthyService:
 
     @classmethod
     def confirm_phone_number(cls, user, verification_code):
-        # TODO: clean this up
-        try:
-            verification = cls.client.tokens.verify(
-                user.authy_user_id, verification_code)
-            print(verification.ok())
-            if verification.ok():
-                return True
-            else:
-                print(verification.errors())
-                raise FailedVerificationError(verification.errors())
-
-        except:
-            FailedVerificationError(
-                'Token must be between 6 and 12 characters.')
+        verification = cls.client.tokens.verify(
+            user.authy_user_id, verification_code)
+        if verification.ok():
+            return {'success': True}
+        else:
+            return {'success': False, 'message': verification.errors()['message']}
+            # TODO: figure out why this doesn't work
+            # return FailedVerificationError(verification.errors())

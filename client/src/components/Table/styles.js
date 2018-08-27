@@ -35,3 +35,11 @@ export const TableRow = styled.tr`
     cursor: pointer;
   }
 `;
+
+export const CallToActionWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 15rem;
+  font-size: 2rem;
+`;

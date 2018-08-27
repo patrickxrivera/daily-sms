@@ -19,6 +19,7 @@ export const ButtonStyles = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: ${({ marginTop }) => marginTop}
 
   &:hover {
     background: ${({ hoverBgColor }) => hoverBgColor};
