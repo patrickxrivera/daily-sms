@@ -29,7 +29,6 @@ const renderMessage = ({ toggleSwitch, handleDeleteClick }) => ({
     <TableCell>{formatTime(send_time)}</TableCell>
     <TableCell>
       <div style={{ display: 'flex' }}>
-        <Edit size={ICON_SIZE} />
         <Trash size={ICON_SIZE} style={{ marginLeft: '10px' }} onClick={handleDeleteClick(id)} />
       </div>
     </TableCell>

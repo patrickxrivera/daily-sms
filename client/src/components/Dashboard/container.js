@@ -15,7 +15,7 @@ class DashboardContainer extends Component {
 
   handleCloseModal = () => {
     this.setState({ showModal: false });
-    clearFields();
+    this.props.clearFields();
   };
 
   render() {

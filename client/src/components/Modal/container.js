@@ -38,6 +38,8 @@ class ModalContainer extends Component {
     this.setState({ days: { ...updatedDays } });
 
     changeFn('frequency', name);
+
+    this.handleCloseCheckbox();
   };
 
   handleFormSubmit = async (fields) => {
