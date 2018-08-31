@@ -4,8 +4,8 @@ import unittest
 from flask import current_app
 from flask_testing import TestCase
 
-from src import create_app
-from src.config import DevelopmentConfig
+from dailysms import create_app
+from dailysms.config import DevelopmentConfig
 
 app = create_app()
 
@@ -13,7 +13,7 @@ app = create_app()
 class TestDevelopmentConfig(TestCase):
 
     def create_app(self):
-        app.config.from_object('src.config.DevelopmentConfig')
+        app.config.from_object('dailysms.config.DevelopmentConfig')
         return app
 
     def test_app_is_development(self):
@@ -28,7 +28,7 @@ class TestDevelopmentConfig(TestCase):
 
 class TestTestingConfig(TestCase):
     def create_app(self):
-        app.config.from_object('src.config.TestingConfig')
+        app.config.from_object('dailysms.config.TestingConfig')
         return app
 
     def test_app_is_testing(self):
@@ -44,7 +44,7 @@ class TestTestingConfig(TestCase):
 
 class TestProductionConfig(TestCase):
     def create_app(self):
-        app.config.from_object('src.config.ProductionConfig')
+        app.config.from_object('dailysms.config.ProductionConfig')
         return app
 
     def test_app_is_production(self):

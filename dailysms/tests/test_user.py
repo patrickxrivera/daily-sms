@@ -1,4 +1,4 @@
-from src.tests.base import BaseTestCase
+from dailysms.tests.base import BaseTestCase
 
 user_data = {'phone_number': 9046377834, 'country_code': 1}
 empty_phone_number = {'country_code': 1}

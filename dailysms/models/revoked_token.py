@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String
-from src.errors import DbError
-from src.extensions import db
+from dailysms.errors import DbError
+from dailysms.extensions import db
 
 
 class RevokedTokenModel(db.Model):

@@ -1,5 +1,5 @@
-from src.config import TwilioSettings
-from src.errors import DailySMSError, TwilioServiceError
+from dailysms.config import TwilioSettings
+from dailysms.errors import DailySMSError, TwilioServiceError
 from twilio.rest import Client
 
 REGISTRATION_SUCCESS = 'Congrats, you are now verified!'

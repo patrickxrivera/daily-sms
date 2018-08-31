@@ -1,8 +1,8 @@
-from src.services.message_worker import MessageWorker
-from src.api.message import Message, MessageList
-from src.api.user import UserRegistration, UserLogin
-from src.api.user import UserLogoutAccess, UserTokenRefresh
-from src.api.user import Verify
+from dailysms.services.message_worker import MessageWorker
+from dailysms.api.message import Message, MessageList
+from dailysms.api.user import UserRegistration, UserLogin
+from dailysms.api.user import UserLogoutAccess, UserTokenRefresh
+from dailysms.api.user import Verify
 from flask_restful import Api
 
 

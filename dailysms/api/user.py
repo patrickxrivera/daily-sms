@@ -1,14 +1,14 @@
 from flask_jwt_extended import jwt_required, jwt_refresh_token_required
 from flask_jwt_extended import get_raw_jwt, get_jwt_identity
-from src.errors import ExistingUserError, InvalidLoginError
-from src.errors import VerificationCodeNotSentError
-from src.errors import InvalidVerificationCodeError
-from src.errors import UserNotFoundError
+from dailysms.errors import ExistingUserError, InvalidLoginError
+from dailysms.errors import VerificationCodeNotSentError
+from dailysms.errors import InvalidVerificationCodeError
+from dailysms.errors import UserNotFoundError
 from flask_restful import Resource, reqparse
-from src.models import RevokedTokenModel
-from src.services import AuthyService, TwilioService
-from src.utils import add_to_parser
-from src.models import UserModel
+from dailysms.models import RevokedTokenModel
+from dailysms.services import AuthyService, TwilioService
+from dailysms.utils import add_to_parser
+from dailysms.models import UserModel
 
 
 class UserRegistration(Resource):

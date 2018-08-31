@@ -1,4 +1,5 @@
-from src.extensions import db
+from dailysms.extensions import db
+from dailysms.errors import DbError
 
 
 class DailySMSModel(object):
@@ -9,7 +10,7 @@ class DailySMSModel(object):
         try:
             db.session.add(self)
             db.session.commit()
-        except OperationalError as e:
+        except Exception as e:
             print(e)
             db.session.rollback()
             raise DbError('Error saving to db.')
@@ -18,7 +19,7 @@ class DailySMSModel(object):
         try:
             db.session.delete(self)
             db.session.commit()
-        except OperationalError as e:
+        except Exception as e:
             print(e)
             db.session.rollback()
             raise DbError('Error saving to db.')

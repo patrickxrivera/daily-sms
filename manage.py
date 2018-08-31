@@ -1,7 +1,7 @@
 import unittest
 from flask.cli import FlaskGroup
-from src import create_app, db
-from src.models import UserModel, MessageModel
+from dailysms import create_app, db
+from dailysms.models import UserModel, MessageModel
 
 app = create_app()
 
@@ -18,7 +18,7 @@ def recreate_db():
 @cli.command()
 def test():
     """Runs the tests without code coverage"""
-    tests = unittest.TestLoader().discover('src/tests', pattern='test_*.py')
+    tests = unittest.TestLoader().discover('dailysms/tests', pattern='test_*.py')
     result = unittest.TextTestRunner(verbosity=2).run(tests)
     if result.wasSuccessful():
         return 0

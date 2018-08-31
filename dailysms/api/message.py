@@ -1,10 +1,10 @@
 from flask_restful import Resource, reqparse
 from flask_restplus import inputs
 
-from src.errors import DbError, UpdateMessageError, DeleteMessageError
-from src.utils import add_to_parser
-from src.models import MessageModel, UserModel
-from src.services import TwilioService
+from dailysms.errors import DbError, UpdateMessageError, DeleteMessageError
+from dailysms.utils import add_to_parser
+from dailysms.models import MessageModel, UserModel
+from dailysms.services import TwilioService
 
 
 class Message(Resource):

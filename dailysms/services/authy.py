@@ -1,6 +1,6 @@
-from src.errors import VerificationCodeNotSentError
-from src.errors import FailedVerificationError
-from src.config import AuthySettings
+from dailysms.errors import VerificationCodeNotSentError
+from dailysms.errors import FailedVerificationError
+from dailysms.config import AuthySettings
 from authy.api import AuthyApiClient
 
 

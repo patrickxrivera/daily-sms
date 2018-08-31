@@ -1,6 +1,6 @@
 from flask import jsonify
-from src.errors import DailySMSError
-from src.models.revoked_token import RevokedTokenModel
+from dailysms.errors import DailySMSError
+from dailysms.models.revoked_token import RevokedTokenModel
 
 
 def init_decorators(app, db, jwt):

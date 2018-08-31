@@ -1,9 +1,9 @@
-from src.utils.decorators import init_decorators
-from src.extensions import init_extensions
+from dailysms.utils.decorators import init_decorators
+from dailysms.extensions import init_extensions
 from flask_jwt_extended import JWTManager
 from dotenv import load_dotenv
-from src.extensions import db
-from src.api import init_api
+from dailysms.extensions import db
+from dailysms.api import init_api
 from flask_cors import CORS
 from flask import Flask
 import os

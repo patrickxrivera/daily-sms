@@ -1,8 +1,8 @@
 from sqlalchemy import Column, Integer, String, Boolean
 from sqlalchemy import ForeignKey
-from src.errors import DbError, TokenGenerationError
+from dailysms.errors import DbError, TokenGenerationError
+from dailysms.extensions import db
 from .base import DailySMSModel
-from src.extensions import db
 
 
 class MessageModel(DailySMSModel, db.Model):

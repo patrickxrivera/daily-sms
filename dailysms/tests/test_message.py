@@ -1,5 +1,5 @@
-from src.tests.base import BaseTestCase
-from src.models import UserModel
+from dailysms.tests.base import BaseTestCase
+from dailysms.models import UserModel
 
 user_data = {'phone_number': 9046377834, 'country_code': 1}
 new_message = {
