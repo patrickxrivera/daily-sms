@@ -1,5 +1,5 @@
 from flask_jwt_extended import create_access_token, create_refresh_token
-from sqlalchemy import Column, Integer, String, Boolean
+from sqlalchemy import Column, Integer, String, Boolean, BigInteger
 from dailysms.errors import DbError, TokenGenerationError
 from dailysms.extensions import db
 from .base import DailySMSModel
@@ -9,7 +9,7 @@ class UserModel(DailySMSModel, db.Model):
     __tablename__ = 'users'
 
     id = Column(Integer, primary_key=True)
-    phone_number = Column(Integer, unique=True, nullable=False)
+    phone_number = Column(BigInteger, unique=True, nullable=False)
     country_code = Column(String, nullable=False)
     verified = Column(Boolean, nullable=False, default=False)
     authy_user_id = Column(String, nullable=True)
@@ -60,25 +60,3 @@ class UserModel(DailySMSModel, db.Model):
     def save(self, *data):
         self.save_to_db()
         return self.json_id
-
-    # def save_to_db(self):
-    #     try:
-    #         db.session.add(self)
-    #         db.session.commit()
-    #     except OperationalError as e:
-    #         print(e)
-    #         db.session.rollback()
-    #         raise DbError('Error saving to db.')
-
-    # def delete_from_db(self):
-    #     try:
-    #         db.session.delete(self)
-    #         db.session.commit()
-    #     except OperationalError as e:
-    #         print(e)
-    #         db.session.rollback()
-    #         raise DbError('Error saving to db.')
-
-    # def __repr__(self):
-    #     """For better error messages"""
-    #     return f'<{self.__class__.__name__}>'

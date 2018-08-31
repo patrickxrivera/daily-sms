@@ -16,7 +16,6 @@ def create_app():
 
     CORS(app)
 
-    # TODO: use docker to load prod vs. dev config
     app_settings = os.getenv('APP_SETTINGS')
     app.config.from_object(app_settings)
 

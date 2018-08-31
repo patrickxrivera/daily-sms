@@ -1,7 +1,5 @@
 import os
 
-# TODO: import settings from app.config instead of env variables so you can use prod tokens
-
 
 class AuthySettings:
     def key():

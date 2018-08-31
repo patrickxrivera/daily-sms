@@ -15,8 +15,7 @@ class AuthyService:
         if user.authy_user_id == None:
             self._register_user_under_authy(user)
 
-        sms = AuthyService.client.users.request_sms(
-            user.authy_user_id, {'force': True})
+        sms = AuthyService.client.users.request_sms(user.authy_user_id)
 
         return not sms.ignored()
 
@@ -24,7 +23,7 @@ class AuthyService:
     def _register_user_under_authy(cls, user):
         # TODO: figure out how to not require email
         authy_user = cls.client.users.create(
-            'patrick.x.rivera@gmail.com', user.phone_number, user.country_code)
+            'patxr7@gmail.com', user.phone_number, user.country_code)
 
         if authy_user.ok():
             user.authy_user_id = authy_user.id

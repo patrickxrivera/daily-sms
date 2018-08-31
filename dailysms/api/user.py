@@ -36,7 +36,7 @@ class UserRegistration(Resource):
             'There was an issue requesting the verification code. Try again.')
 
 
-class Verify(Resource):
+class UserVerify(Resource):
     parser = reqparse.RequestParser()
 
     add_to_parser(parser, 'verification_code', str, required=True)
