@@ -1,0 +1,8 @@
+../socks.py
+../sockshandler.py
+../__pycache__/socks.cpython-36.pyc
+../__pycache__/sockshandler.cpython-36.pyc
+PKG-INFO
+SOURCES.txt
+top_level.txt
+dependency_links.txt
