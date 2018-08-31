@@ -1,0 +1,33 @@
+{
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "^1.5.1",
+    "await-to-js": "^2.0.1",
+    "axios": "^0.18.0",
+    "ramda": "^0.25.0",
+    "react": "^16.4.2",
+    "react-autosize-textarea": "^4.0.0",
+    "react-click-outside": "^3.0.1",
+    "react-dom": "^16.4.2",
+    "react-feather": "^1.1.1",
+    "react-loading": "^2.0.3",
+    "react-modal": "^3.5.1",
+    "react-redux": "^5.0.7",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "1.1.4",
+    "react-toggle-switch": "^3.0.4",
+    "redux": "^4.0.0",
+    "redux-actions": "^2.6.1",
+    "redux-form": "^7.4.2",
+    "redux-thunk": "^2.3.0",
+    "styled-components": "^3.4.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
