@@ -9,6 +9,7 @@ export const Wrapper = styled.div`
   border-radius: 4px;
   margin: 1.5rem 0;
   background-color: #fff;
+  overflow-y: auto;
 `;
 
 export const TableWrapper = styled.table`

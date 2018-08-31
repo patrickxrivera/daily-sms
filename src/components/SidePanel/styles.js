@@ -5,7 +5,7 @@ export const SidePanelWrapper = styled.div`
   background-color: #fff;
   width: 260px;
   padding-left: 3rem;
-  padding-top: 7rem;
+  padding-top: 7.7rem;
 `;
 
 export const Heading = styled.div`

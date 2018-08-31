@@ -20,7 +20,7 @@ export const ContentWrapper = styled.div`
 
 export const HeadingWrapper = styled.div`
   display: flex;
-  margin-top: 6rem;
+  margin-top: 3rem;
   justify-content: space-between;
   align-items: center;
 `;
