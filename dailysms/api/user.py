@@ -1,10 +1,10 @@
 from flask_jwt_extended import jwt_required, jwt_refresh_token_required
 from flask_jwt_extended import get_raw_jwt, get_jwt_identity
+from flask_restful import Resource, reqparse
 from dailysms.errors import ExistingUserError, InvalidLoginError
 from dailysms.errors import VerificationCodeNotSentError
 from dailysms.errors import InvalidVerificationCodeError
 from dailysms.errors import UserNotFoundError
-from flask_restful import Resource, reqparse
 from dailysms.models import RevokedTokenModel
 from dailysms.services import AuthyService, TwilioService
 from dailysms.utils import add_to_parser

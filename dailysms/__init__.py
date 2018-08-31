@@ -1,8 +1,9 @@
 from dailysms.utils.decorators import init_decorators
 from dailysms.extensions import init_extensions
+from apscheduler.schedulers import SchedulerAlreadyRunningError
 from flask_jwt_extended import JWTManager
 from dotenv import load_dotenv
-from dailysms.extensions import db
+from dailysms.extensions import db, scheduler
 from dailysms.api import init_api
 from flask_cors import CORS
 from flask import Flask
@@ -22,7 +23,7 @@ def create_app():
     jwt = JWTManager(app)
 
     init_api(app)
-    init_extensions(app, db)
+    init_extensions(app, db, scheduler)
     init_decorators(app, db, jwt)
 
     # shell context for flask cli

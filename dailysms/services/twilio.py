@@ -5,7 +5,7 @@ from twilio.rest import Client
 REGISTRATION_SUCCESS = 'Congrats, you are now verified!'
 
 
-class TwilioService:
+class TwilioService(object):
     client = None
 
     def __init__(self):

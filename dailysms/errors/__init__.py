@@ -65,3 +65,7 @@ class InvalidVerificationCodeError(DailySMSError):
 
 class TwilioServiceError(DailySMSError):
     pass
+
+
+class AddJobError(DailySMSError):
+    pass

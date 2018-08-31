@@ -4,7 +4,7 @@ from flask_restplus import inputs
 from dailysms.errors import DbError, UpdateMessageError, DeleteMessageError
 from dailysms.utils import add_to_parser
 from dailysms.models import MessageModel, UserModel
-from dailysms.services import TwilioService
+from dailysms.services import TwilioService, Cron
 
 
 class Message(Resource):
@@ -24,6 +24,9 @@ class Message(Resource):
         message.save_to_db()
 
         user = UserModel.find_by_user_id(user_id)
+
+        cron = Cron()
+        cron.add_job(message, user.phone_number)
 
         twilio = TwilioService()
         twilio.send_add_message_success_sms(user.formatted_phone_number, data)

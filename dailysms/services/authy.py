@@ -4,7 +4,7 @@ from dailysms.config import AuthySettings
 from authy.api import AuthyApiClient
 
 
-class AuthyService:
+class AuthyService(object):
     client = None
 
     def __init__(self):

@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 from .settings import AuthySettings, TwilioSettings
+from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
 
 load_dotenv()
 
@@ -19,6 +20,8 @@ class BaseConfig:
 
     TWILIO_NUMBER = os.environ.get('TWILIO_NUMBER')
 
+    SCHEDULER_API_ENABLED = True
+
 
 class DevelopmentConfig(BaseConfig):
     """Development configuration"""
@@ -26,6 +29,9 @@ class DevelopmentConfig(BaseConfig):
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
     TWILIO_ACCOUNT_SID = os.environ.get('TWILIO_ACCOUNT_SID')
     TWILIO_AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN')
+    SCHEDULER_JOBSTORES = {
+        'default': SQLAlchemyJobStore(url=os.environ.get('DATABASE_URL'))
+    }
 
 
 class TestingConfig(BaseConfig):
@@ -35,6 +41,9 @@ class TestingConfig(BaseConfig):
     TWILIO_ACCOUNT_SID = os.environ.get('TWILIO_TEST_ACCOUNT_SID')
     TWILIO_AUTH_TOKEN = os.environ.get('TWILIO_TEST_AUTH_TOKEN')
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_TEST_URL')
+    SCHEDULER_JOBSTORES = {
+        'default': SQLAlchemyJobStore(url=os.environ.get('DATABASE_TEST_URL'))
+    }
 
 
 class ProductionConfig(BaseConfig):
@@ -42,3 +51,6 @@ class ProductionConfig(BaseConfig):
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
     TWILIO_ACCOUNT_SID = os.environ.get('TWILIO_ACCOUNT_SID')
     TWILIO_AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN')
+    SCHEDULER_JOBSTORES = {
+        'default': SQLAlchemyJobStore(url=os.environ.get('DATABASE_URL'))
+    }
