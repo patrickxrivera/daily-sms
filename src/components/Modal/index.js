@@ -20,18 +20,23 @@ import {
   style
 } from './styles';
 
-const renderTextarea = ({ input, meta: { touched, error } }) => (
-  <InputStyled resize renderErrorText={touched && error}>
-    <TextareaStyled autoFocus {...input} />
-    <span style={{ fontSize: '12px', color: '#cc0000' }}>{touched && error}</span>
+const InputWithErrorStyling = ({ meta: { touched, error }, children }) => (
+  <InputStyled renderErrorText={touched && error}>
+    {children}
+    <div style={{ fontSize: '12px', color: '#cc0000' }}>{touched && error}</div>
   </InputStyled>
 );
 
-const renderFrequency = ({ input, meta: { touched, error } }) => (
-  <InputStyled renderErrorText={touched && error}>
+const renderTextarea = ({ input, ...rest }) => (
+  <InputWithErrorStyling {...rest}>
+    <TextareaStyled autoFocus {...input} />
+  </InputWithErrorStyling>
+);
+
+const renderFrequency = ({ input, ...rest }) => (
+  <InputWithErrorStyling {...rest}>
     <FrequencyInputStyled {...input} placeholder="How often?" />
-    <div style={{ fontSize: '12px', color: '#cc0000' }}>{touched && error}</div>
-  </InputStyled>
+  </InputWithErrorStyling>
 );
 
 const Modal = ({

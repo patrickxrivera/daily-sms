@@ -12,7 +12,8 @@ const defaultProps = {
   marginRight: '0px',
   hoverBgColor: 'rgba(9, 132, 280, 1)',
   border: 'none',
-  marginTop: '0px'
+  marginTop: '0px',
+  uppercase: false
 };
 
 const Button = ({ children, handleClick, ...props }) => (

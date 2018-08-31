@@ -20,6 +20,7 @@ export const ButtonStyles = styled.button`
   justify-content: center;
   align-items: center;
   margin-top: ${({ marginTop }) => marginTop}
+  text-transform: ${({ uppercase }) => (uppercase ? 'uppercase' : 'none')}
 
   &:hover {
     background: ${({ hoverBgColor }) => hoverBgColor};

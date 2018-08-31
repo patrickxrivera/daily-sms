@@ -17,18 +17,55 @@ class SignUpContainer extends Component {
     renderLoadingIndicator: false
   };
 
+  handleKeyDown = async (e) => {
+    const { value } = this.state.phoneNumber;
+
+    if (isNaN(e.key) && e.key !== 'Backspace') e.preventDefault();
+
+    if (e.key !== 'Backspace') return;
+
+    e.preventDefault();
+
+    await this.setState({
+      phoneNumber: {
+        ...this.state.phoneNumber,
+        value: value.slice(0, -1)
+      }
+    });
+  };
+
   // TODO:
   // 1) dry up handlers
   // 2) add phone number auto formatting
   // 3) return error if given non-numbers
   // 4) add redux form for validation and errors?
   handleInputChange = (e) => {
-    const propName = e.target.name;
+    const { phoneNumber } = this.state;
+    const phoneNumberLength = phoneNumber.value.length;
+
+    if (phoneNumberLength === 14) return;
+
+    let value;
+
+    switch (phoneNumberLength) {
+      case 0:
+        value = `(${e.target.value}`;
+        break;
+      case 3:
+        value = `${e.target.value}) `;
+        break;
+      case 8:
+        value = `${e.target.value}-`;
+        break;
+      default:
+        value = e.target.value;
+        break;
+    }
 
     this.setState({
-      [propName]: {
-        ...this.state[propName],
-        value: e.target.value
+      phoneNumber: {
+        ...this.state.phoneNumber,
+        value
       }
     });
   };
@@ -67,6 +104,7 @@ class SignUpContainer extends Component {
       {...this.state}
       handleSubmit={this.handleSubmit}
       handleInputChange={this.handleInputChange}
+      handleKeyDown={this.handleKeyDown}
     />
   );
 }

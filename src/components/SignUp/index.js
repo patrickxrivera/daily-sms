@@ -11,6 +11,7 @@ import {
   ErrorText
 } from './styles';
 import Button from 'components/Button';
+import PhoneInput from 'react-phone-number-input';
 
 const LOADING_SIZE = 25;
 
@@ -21,7 +22,13 @@ const renderButtonContent = (renderLoadingIndicator) =>
     'Send'
   );
 
-const SignUp = ({ handleSubmit, handleInputChange, renderLoadingIndicator, phoneNumber }) => (
+const SignUp = ({
+  handleSubmit,
+  handleInputChange,
+  handleKeyDown,
+  renderLoadingIndicator,
+  phoneNumber
+}) => (
   <FilledBackground>
     <form onSubmit={handleSubmit}>
       <InputWrapper>
@@ -32,6 +39,7 @@ const SignUp = ({ handleSubmit, handleInputChange, renderLoadingIndicator, phone
             placeholder="Your Phone Number"
             value={phoneNumber.value}
             onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
             name={phoneNumber.name}
             autoFocus
           />
@@ -41,7 +49,7 @@ const SignUp = ({ handleSubmit, handleInputChange, renderLoadingIndicator, phone
           <Subtext>Message and data rates may apply.</Subtext>
         </div>
         <div>
-          <Button width="100%" onClick={handleSubmit}>
+          <Button width="100%" onClick={handleSubmit} fontSize="18px" uppercase>
             {renderButtonContent(renderLoadingIndicator)}
           </Button>
         </div>

@@ -46,7 +46,9 @@ const VerificationPage = ({
           <Subtext>Please retry if you don't receive the code.</Subtext>
         </div>
         <div>
-          <Button onClick={handleSubmit}>{renderButtonContent(renderLoadingIndicator)}</Button>
+          <Button onClick={handleSubmit} fontSize="18px" uppercase>
+            {renderButtonContent(renderLoadingIndicator)}
+          </Button>
         </div>
       </InputWrapper>
     </form>

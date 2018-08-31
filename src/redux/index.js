@@ -4,10 +4,19 @@ import handleActions from './form/reducers';
 import messagesReducer from './messages/reducers';
 import authReducer from './auth/reducers';
 
-const rootReducer = combineReducers({
+const appReducer = combineReducers({
   form: formReducer.plugin(handleActions),
   messages: messagesReducer,
   auth: authReducer
 });
+
+// clear state on log out
+const rootReducer = (state, action) => {
+  if (action.type === 'LOG_OUT_USER') {
+    state = undefined;
+  }
+
+  return appReducer(state, action);
+};
 
 export default rootReducer;
