@@ -57,6 +57,6 @@ export const Subtext = styled.div`
 
 export const ErrorText = styled.div`
   color: #dc3545;
-  margin: -1.4rem 0 0.4rem;
+  margin: -0.8rem 0 0.8rem;
   height: 18px;
 `;

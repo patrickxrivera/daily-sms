@@ -1,8 +1,16 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import SignUp from './';
 import api from 'api';
+import { registerUser } from 'redux/auth/actions';
 import { isCreateError } from 'utils/errors';
+
+const isDigit = ({ key }) => key !== 'Backspace';
+
+const isValidSubmission = ({ key }, isDisabled) => key === 'Enter' && !isDisabled;
+
+const isInvalidKey = ({ key }) => isNaN(key) && key !== 'Backspace';
 
 class SignUpContainer extends Component {
   state = {
@@ -14,36 +22,43 @@ class SignUpContainer extends Component {
     countryCode: {
       value: 1
     },
-    renderLoadingIndicator: false
+    renderLoadingIndicator: false,
+    isDisabled: true
   };
 
   handleKeyDown = async (e) => {
     const { value } = this.state.phoneNumber;
+    const { isDisabled } = this.state;
 
-    if (isNaN(e.key) && e.key !== 'Backspace') e.preventDefault();
-
-    if (e.key !== 'Backspace') return;
-
-    e.preventDefault();
+    switch (true) {
+      case isValidSubmission(e, isDisabled):
+        this.handleSubmit(e);
+        return;
+      case isInvalidKey(e):
+        e.preventDefault();
+        return;
+      case isDigit(e):
+        return;
+      default:
+        e.preventDefault();
+        break;
+    }
 
     await this.setState({
       phoneNumber: {
         ...this.state.phoneNumber,
+        errorText: '',
         value: value.slice(0, -1)
-      }
+      },
+      isDisabled: true
     });
   };
 
-  // TODO:
-  // 1) dry up handlers
-  // 2) add phone number auto formatting
-  // 3) return error if given non-numbers
-  // 4) add redux form for validation and errors?
-  handleInputChange = (e) => {
-    const { phoneNumber } = this.state;
+  handleInputChange = async (e) => {
+    const { phoneNumber, isDisabled } = this.state;
     const phoneNumberLength = phoneNumber.value.length;
 
-    if (phoneNumberLength === 14) return;
+    if (phoneNumberLength >= 14) return;
 
     let value;
 
@@ -62,6 +77,8 @@ class SignUpContainer extends Component {
         break;
     }
 
+    if (phoneNumberLength >= 13) this.setState({ isDisabled: false });
+
     this.setState({
       phoneNumber: {
         ...this.state.phoneNumber,
@@ -73,40 +90,43 @@ class SignUpContainer extends Component {
   handleSubmit = async (e) => {
     e.preventDefault();
 
+    const { phoneNumber, countryCode, isDisabled } = this.state;
+
+    if (isDisabled) return;
+
     this.setState({ renderLoadingIndicator: true });
 
-    const { phoneNumber, countryCode } = this.state;
+    const { error, ...res } = await this.props.registerUser({ phoneNumber, countryCode });
 
-    const res = await api.registerUser({ phoneNumber, countryCode });
-
-    isCreateError(res) ? this.handleRequestError(res) : this.handleRequestSuccess(res);
+    error ? this.handleRequestError(res) : this.handleRequestSuccess(res);
   };
 
-  handleRequestSuccess = ({ data }) => {
-    // TODO:
-    // 1) save accessToken and refreshToken to redux store
-    // 2) handle if user is already verified
-    this.props.history.push(`/verify/${data.user_id}`);
-  };
-
-  handleRequestError = (errorText) => {
+  handleRequestError = (error) => {
     this.setState({
       phoneNumber: {
         ...this.state.phoneNumber,
-        errorText
+        errorText: error.message
       },
       renderLoadingIndicator: false
     });
   };
 
-  render = () => (
-    <SignUp
-      {...this.state}
-      handleSubmit={this.handleSubmit}
-      handleInputChange={this.handleInputChange}
-      handleKeyDown={this.handleKeyDown}
-    />
-  );
+  handleRequestSuccess = ({ verified, user_id }) => {
+    const { history } = this.props;
+
+    verified ? history.push('/dashboard') : history.push(`/verify/${user_id}`);
+  };
+
+  render() {
+    return (
+      <SignUp
+        {...this.state}
+        handleSubmit={this.handleSubmit}
+        handleInputChange={this.handleInputChange}
+        handleKeyDown={this.handleKeyDown}
+      />
+    );
+  }
 }
 
-export default SignUpContainer;
+export default connect(null, { registerUser })(SignUpContainer);

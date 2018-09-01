@@ -1,8 +1,9 @@
 export const isInvalidPhoneNumber = (message) => message['phone_number'];
 
-// TODO: abstract these format functions
+const stripNonDigits = (value) => value.replace(/\D/g, '');
+
 export const formatUserData = ({ phoneNumber, countryCode }) => ({
-  phone_number: phoneNumber.value,
+  phone_number: stripNonDigits(phoneNumber.value),
   country_code: countryCode.value
 });
 

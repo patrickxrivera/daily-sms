@@ -6,6 +6,8 @@ const API_BASE = 'http://localhost:5000/api';
 const MESSAGE_ENDPOINT = `${API_BASE}/message`;
 const GET_MESSAGE_LIST_ENDPOINT = `${API_BASE}/messages`;
 
+// TODO: dry these up
+
 const handleError = (err) => {
   console.error(err);
   return { success: false };

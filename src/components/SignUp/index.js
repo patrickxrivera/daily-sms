@@ -27,7 +27,8 @@ const SignUp = ({
   handleInputChange,
   handleKeyDown,
   renderLoadingIndicator,
-  phoneNumber
+  phoneNumber,
+  isDisabled
 }) => (
   <FilledBackground>
     <form onSubmit={handleSubmit}>
@@ -44,12 +45,17 @@ const SignUp = ({
             autoFocus
           />
           <Line />
-          <ErrorText>{phoneNumber.errorText}</ErrorText>
+          {phoneNumber.errorText && <ErrorText>{phoneNumber.errorText}</ErrorText>}
           <Subtext>We will send you a one-time verification code.</Subtext>
           <Subtext>Message and data rates may apply.</Subtext>
         </div>
         <div>
-          <Button width="100%" onClick={handleSubmit} fontSize="18px" uppercase>
+          <Button
+            width="100%"
+            onClick={handleSubmit}
+            fontSize="18px"
+            uppercase
+            isDisabled={isDisabled}>
             {renderButtonContent(renderLoadingIndicator)}
           </Button>
         </div>

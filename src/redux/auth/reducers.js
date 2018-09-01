@@ -4,8 +4,9 @@ const initialState = {};
 
 export default handleActions(
   {
-    ADD_AUTH_CREDENTIALS: (state, action) => ({
-      ...state
+    SAVE_AUTH_CREDENTIALS: (state, { credentials }) => ({
+      ...state,
+      ...credentials
     })
   },
   initialState

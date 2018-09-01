@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { registerUserSuccess } from 'redux/auth/dispatch';
 
 import * as h from './helpers';
 
@@ -6,24 +7,11 @@ const API_BASE = 'http://localhost:5000/api';
 const REGISTER_USER_ENDPOINT = `${API_BASE}/register`;
 const VERIFY_USER_ENDPOINT = `${API_BASE}/verify`;
 
-const handleSuccess = (res) => res;
-
-const handleRegisterUserError = ({ response }) => {
-  const { message } = response.data;
-
-  return h.isInvalidPhoneNumber(message)
-    ? h.formatErrorMessage(message['phone_number'], response)
-    : h.formatErrorMessage(message, response);
-};
-
-export const registerUser = (userData) => {
-  const normalizedUserData = h.formatUserData(userData);
-
-  return axios
-    .post(REGISTER_USER_ENDPOINT, normalizedUserData)
-    .then(handleSuccess)
-    .catch(handleRegisterUserError);
-};
+export const registerUser = (userData) =>
+  axios
+    .post(REGISTER_USER_ENDPOINT, userData)
+    .then(({ data }) => data)
+    .catch(({ response }) => ({ error: true, ...response.data }));
 
 const handleVerififyUserError = ({ response }) => {
   if (!response) return 'Unknown error. Please try again.';
@@ -39,6 +27,6 @@ export const verifyUser = (verificationCode, userId) => {
 
   return axios
     .post(`${VERIFY_USER_ENDPOINT}/${userId}`, normalizedVerificationCode)
-    .then(handleSuccess)
+    .then(({ data }) => data)
     .catch(handleVerififyUserError);
 };
