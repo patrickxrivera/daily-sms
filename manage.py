@@ -26,20 +26,5 @@ def test():
     return 1
 
 
-@cli.command()
-def seed_db():
-    """Seeds the database."""
-    seed_user = {'phone_number': '1', 'country_code': '1'}
-    seed_message_one = {'user_id': '1', 'text': 'Rise and shine!',
-                        'send_time': '08:30', 'frequency': 'Every day'}
-    seed_message_two = {'user_id': '1', 'text': 'Early bird gets the worm',
-                        'send_time': '05:30', 'frequency': 'Every day'}
-
-    db.session.add(UserModel(**seed_user))
-    db.session.add(MessageModel(**seed_message_one))
-    db.session.add(MessageModel(**seed_message_two))
-    db.session.commit()
-
-
 if __name__ == '__main__':
     cli()

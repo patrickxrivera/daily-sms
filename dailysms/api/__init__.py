@@ -1,13 +1,15 @@
-from dailysms.api.message import Message, MessageList
-from dailysms.api.user import UserRegistration, UserLogin
-from dailysms.api.user import UserLogoutAccess, UserTokenRefresh
-from dailysms.api.user import UserVerify
+from .message import Message, MessageList
+from .user import UserRegistration, UserLogin
+from .user import UserLogoutAccess, UserTokenRefresh
+from .user import UserVerify
+from .test import Test
 from flask_restful import Api
 
 
 def init_api(app):
     api = Api(app, prefix='/api')
 
+    api.add_resource(Test, '/')
     api.add_resource(UserRegistration, '/register')
     api.add_resource(UserVerify, '/verify/<int:user_id>')
     api.add_resource(UserLogin, '/login')
