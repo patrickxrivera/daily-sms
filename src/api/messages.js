@@ -4,7 +4,6 @@ import { formatTime } from 'components/Table/helpers';
 import { MESSAGE_ENDPOINT, GET_MESSAGE_LIST_ENDPOINT } from 'utils/endpoints';
 
 // TODO: dry these up
-
 const handleError = (err) => {
   console.error(err);
   return { success: false };
