@@ -1,3 +1,4 @@
+import twilio
 from dailysms.config import TwilioSettings
 from dailysms.errors import DailySMSError, TwilioServiceError
 from twilio.rest import Client
@@ -32,6 +33,6 @@ class TwilioService(object):
                 from_=TwilioSettings.phone_number(),
                 to=to_number
             )
-        except DailySMSError as e:
+        except twilio.base.exceptions.TwilioRestException as e:
             print(e)
-            TwilioServiceError("Couldn't send text message.")
+            raise TwilioServiceError("Couldn't send text message.")
