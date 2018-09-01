@@ -31,7 +31,7 @@ def add_to_parser(parser, field, type, required=False, error_message=None):
     parser.add_argument(field, type=type, required=required, help=error_message, location='json')
 
 
-def format_job_params(trigger, message, to_number):
+def format_job_params(trigger, message, to_number, replace_existing=True):
     """
     Formats params before adding job to jobstore.
 
@@ -45,6 +45,7 @@ def format_job_params(trigger, message, to_number):
 
     return {
         'trigger': trigger,
+        'replace_existing': replace_existing,
         'args': [to_number, message.text],
         'day_of_week': format_day_of_week(message.frequency),
         **time
