@@ -42,7 +42,7 @@ class TestingConfig(BaseConfig):
     TWILIO_AUTH_TOKEN = os.environ.get('TWILIO_TEST_AUTH_TOKEN')
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_TEST_URL')
     SCHEDULER_JOBSTORES = {
-        'default': SQLAlchemyJobStore(url=os.environ.get('DATABASE_TEST_URL'))
+        'default': SQLAlchemyJobStore(url=os.environ.get('DATABASE_URL'))
     }
 
 
