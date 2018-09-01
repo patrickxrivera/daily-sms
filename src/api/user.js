@@ -8,7 +8,11 @@ export const registerUser = (userData) =>
   axios
     .post(REGISTER_USER_ENDPOINT, userData)
     .then(({ data }) => data)
-    .catch(({ response }) => ({ error: true, ...response.data }));
+    // .catch(({ response }) => ({ error: true, ...response.data }));
+    .catch((err) => {
+      console.dir(err);
+      return { error: true, message: 'Unknown error. Please try again.' };
+    });
 
 const handleVerififyUserError = ({ response }) =>
   !response || !response.data.message
