@@ -1,10 +1,7 @@
 import axios from 'axios';
 
 import { formatTime } from 'components/Table/helpers';
-
-const API_BASE = 'http://localhost:5000/api';
-const MESSAGE_ENDPOINT = `${API_BASE}/message`;
-const GET_MESSAGE_LIST_ENDPOINT = `${API_BASE}/messages`;
+import { MESSAGE_ENDPOINT, GET_MESSAGE_LIST_ENDPOINT } from 'utils/endpoints';
 
 // TODO: dry these up
 

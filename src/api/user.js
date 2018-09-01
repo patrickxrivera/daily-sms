@@ -1,11 +1,8 @@
 import axios from 'axios';
 import { registerUserSuccess } from 'redux/auth/dispatch';
+import { REGISTER_USER_ENDPOINT, VERIFY_USER_ENDPOINT } from 'utils/endpoints';
 
 import * as h from './helpers';
-
-const API_BASE = 'http://localhost:5000/api';
-const REGISTER_USER_ENDPOINT = `${API_BASE}/register`;
-const VERIFY_USER_ENDPOINT = `${API_BASE}/verify`;
 
 export const registerUser = (userData) =>
   axios

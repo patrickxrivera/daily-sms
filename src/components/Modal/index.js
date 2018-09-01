@@ -27,10 +27,11 @@ const InputWithErrorStyling = ({ meta: { touched, error }, children }) => (
   </InputStyled>
 );
 
-const renderTextarea = ({ input, ...rest }) => (
-  <InputWithErrorStyling {...rest}>
-    <TextareaStyled autoFocus {...input} />
-  </InputWithErrorStyling>
+const renderTextarea = ({ meta: { touched, error }, input }) => (
+  <InputStyled renderErrorText={touched && error}>
+    <TextareaStyled {...input} />
+    <div style={{ fontSize: '12px', color: '#cc0000' }}>{touched && error}</div>
+  </InputStyled>
 );
 
 const renderFrequency = ({ input, ...rest }) => (
