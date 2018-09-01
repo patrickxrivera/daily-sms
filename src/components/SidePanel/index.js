@@ -2,12 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { MessageCircle, LogOut } from 'react-feather';
 import { SidePanelWrapper, Heading, MenuItem, MenuItemText } from './styles';
-import { logOutUser } from 'redux/auth/actions';
 import colors from 'utils/colors';
 
 const ICON_SIZE = 18;
 
-const SidePanel = ({ logOutUser }) => (
+const SidePanel = ({ handleLogOut }) => (
   <SidePanelWrapper>
     <Heading>Menu</Heading>
     <div>
@@ -15,7 +14,7 @@ const SidePanel = ({ logOutUser }) => (
         <MessageCircle size={ICON_SIZE} color={colors.primary} />
         <MenuItemText isSelected>Messages</MenuItemText>
       </MenuItem>
-      <MenuItem onClick={logOutUser}>
+      <MenuItem onClick={handleLogOut}>
         <LogOut size={ICON_SIZE} />
         <MenuItemText>Log Out</MenuItemText>
       </MenuItem>
@@ -23,4 +22,4 @@ const SidePanel = ({ logOutUser }) => (
   </SidePanelWrapper>
 );
 
-export default connect(null, { logOutUser })(SidePanel);
+export default SidePanel;

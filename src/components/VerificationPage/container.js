@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import api from 'api';
 import VerificationPage from './';
 import { isOkError } from 'utils/errors';
-
-const queryUrlParams = ({ location }) => location.pathname.split('/').pop();
+import { verifyUser } from 'redux/auth/actions';
+import { isValidSubmission, isInvalidKey, isDigit } from '../SignUp/helpers';
+import { queryUrlParams } from './helpers';
 
 class VerificationPageContainer extends Component {
   state = {
@@ -14,6 +16,7 @@ class VerificationPageContainer extends Component {
       errorText: ''
     },
     renderLoadingIndicator: false,
+    isDisabled: false,
     userId: null
   };
 
@@ -24,6 +27,32 @@ class VerificationPageContainer extends Component {
   getUserId = () => {
     const userId = queryUrlParams(this.props);
     this.setState({ userId });
+  };
+
+  handleKeyDown = async (e) => {
+    const { isDisabled, verificationCode: { value } } = this.state;
+
+    switch (true) {
+      case isValidSubmission(e, isDisabled):
+        this.handleSubmit(e);
+        return;
+      case isInvalidKey(e):
+        e.preventDefault();
+        return;
+      case isDigit(e):
+        return;
+      default:
+        e.preventDefault();
+        break;
+    }
+
+    await this.setState({
+      verificationCode: {
+        ...this.state.verificationCode,
+        errorText: '',
+        value: value.slice(0, -1)
+      }
+    });
   };
 
   handleInputChange = (e) => {
@@ -40,30 +69,25 @@ class VerificationPageContainer extends Component {
   handleSubmit = async (e) => {
     e.preventDefault();
 
-    // TODO: add validation that verificationCode must be an integer
-    // TODO: look at authy validation rules for token verification
-
     this.setState({ renderLoadingIndicator: true });
 
     const { verificationCode, userId } = this.state;
+    const { verifyUser } = this.props;
 
-    const res = await api.verifyUser(verificationCode, userId);
+    const { success, ...res } = await verifyUser(verificationCode, userId);
 
-    isOkError(res) ? this.handleRequestError(res) : this.handleRequestSuccess(res);
+    success ? this.handleRequestSuccess() : this.handleRequestError(res);
   };
 
-  handleRequestSuccess = ({ data }) => {
-    // TODO:
-    // 1) save accessToken and refreshToken to redux store
-    // 2) handle if user is already verified
+  handleRequestSuccess = () => {
     this.props.history.push(`/dashboard`);
   };
 
-  handleRequestError = (errorText) => {
+  handleRequestError = (error) => {
     this.setState({
       verificationCode: {
         ...this.state.verificationCode,
-        errorText
+        errorText: error.message
       },
       renderLoadingIndicator: false
     });
@@ -74,8 +98,9 @@ class VerificationPageContainer extends Component {
       {...this.state}
       handleSubmit={this.handleSubmit}
       handleInputChange={this.handleInputChange}
+      handleKeyDown={this.handleKeyDown}
     />
   );
 }
 
-export default VerificationPageContainer;
+export default connect(null, { verifyUser })(VerificationPageContainer);

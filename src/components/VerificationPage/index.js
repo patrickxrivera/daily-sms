@@ -25,7 +25,9 @@ const VerificationPage = ({
   handleSubmit,
   handleInputChange,
   renderLoadingIndicator,
-  verificationCode
+  verificationCode,
+  handleKeyDown,
+  isDisabled
 }) => (
   <FilledBackground>
     <form onSubmit={handleSubmit}>
@@ -36,17 +38,18 @@ const VerificationPage = ({
           <Input
             placeholder="Your Verification Code"
             value={verificationCode.value}
+            onKeyDown={handleKeyDown}
             onChange={handleInputChange}
             name={verificationCode.name}
             autoFocus
           />
           <Line />
-          <ErrorText>{verificationCode.errorText}</ErrorText>
+          {verificationCode.errorText && <ErrorText>{verificationCode.errorText}</ErrorText>}
           <Subtext>This can take a few seconds.</Subtext>
           <Subtext>Please retry if you don't receive the code.</Subtext>
         </div>
         <div>
-          <Button onClick={handleSubmit} fontSize="18px" uppercase>
+          <Button onClick={handleSubmit} fontSize="18px" uppercase isDisabled={isDisabled}>
             {renderButtonContent(renderLoadingIndicator)}
           </Button>
         </div>

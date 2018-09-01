@@ -39,6 +39,7 @@ export const CountryCodeText = styled.span`
 export const Input = styled.input`
   border: none;
   font-size: 1.5rem;
+  width: 100%;
 
   &:focus {
     outline: none;

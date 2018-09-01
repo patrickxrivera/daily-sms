@@ -5,12 +5,7 @@ import SignUp from './';
 import api from 'api';
 import { registerUser } from 'redux/auth/actions';
 import { isCreateError } from 'utils/errors';
-
-const isDigit = ({ key }) => key !== 'Backspace';
-
-const isValidSubmission = ({ key }, isDisabled) => key === 'Enter' && !isDisabled;
-
-const isInvalidKey = ({ key }) => isNaN(key) && key !== 'Backspace';
+import { isValidSubmission, isInvalidKey, isDigit } from './helpers';
 
 class SignUpContainer extends Component {
   state = {

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SidePanel from 'components/SidePanel';
+import SidePanelContainer from 'components/SidePanel/container';
 import TableContainer from 'components/Table/container';
 import ModalContainer from 'components/Modal/container';
 import Button from 'components/Button';
@@ -8,7 +8,7 @@ import { Wrapper, ContentWrapper, HeadingWrapper, TableName } from './styles';
 
 const Dashboard = ({ handleOpenModal, ...rest }) => (
   <Wrapper>
-    <SidePanel />
+    <SidePanelContainer />
     <ContentWrapper>
       <HeadingWrapper>
         <TableName>My Messages</TableName>

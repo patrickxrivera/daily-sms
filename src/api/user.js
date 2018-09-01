@@ -13,20 +13,13 @@ export const registerUser = (userData) =>
     .then(({ data }) => data)
     .catch(({ response }) => ({ error: true, ...response.data }));
 
-const handleVerififyUserError = ({ response }) => {
-  if (!response) return 'Unknown error. Please try again.';
+const handleVerififyUserError = ({ response }) =>
+  !response || !response.data.message
+    ? { error: true, message: 'Unknown error. Please try again.' }
+    : { error: true, ...response.data };
 
-  const { message } = response.data;
-
-  // TODO: figure out how to standardize the error message format on the backend
-  return message.message ? message.message : message;
-};
-
-export const verifyUser = (verificationCode, userId) => {
-  const normalizedVerificationCode = h.formatVerificationCode(verificationCode);
-
-  return axios
-    .post(`${VERIFY_USER_ENDPOINT}/${userId}`, normalizedVerificationCode)
+export const verifyUser = (verificationCode, userId) =>
+  axios
+    .post(`${VERIFY_USER_ENDPOINT}/${userId}`, verificationCode)
     .then(({ data }) => data)
     .catch(handleVerififyUserError);
-};
