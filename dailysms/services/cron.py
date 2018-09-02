@@ -21,3 +21,9 @@ class Cron(object):
         except DailySMSError as e:
             print(e)
             raise AddJobError(f'Unable to add job with message id: {message.id}')
+
+    def remove_all_jobs(self):
+        self._scheduler.remove_all_jobs()
+
+    def remove_job(self, job_id):
+        self._scheduler.remove_job(str(job_id))

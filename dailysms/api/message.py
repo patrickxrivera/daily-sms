@@ -54,6 +54,9 @@ class Message(Resource):
 
         message.delete_from_db()
 
+        cron = Cron()
+        cron.remove_job(message.id)
+
         return {'success': 'ok'}, 202
 
 

@@ -64,7 +64,7 @@ class UserVerify(Resource):
         twilio_service.send_registration_success_sms(
             user.formatted_phone_number)
 
-        return {'success': 'ok'}
+        return {'success': 'ok', 'verified': user.verified}
 
 
 class UserLogin(Resource):
@@ -76,13 +76,13 @@ class UserLogin(Resource):
     def post(cls):
         data = cls.parser.parse_args()
 
-        current_user = UserModel.find_by_phone_number(data['phone_number'])
+        user = UserModel.find_by_phone_number(data['phone_number'])
 
-        if not current_user:
+        if not user:
             raise InvalidLoginError(
                 f"User with phone number {data['phone_number']} doesn't exist.")
 
-        return current_user.tokens
+        return {**user.tokens, 'user_id': user.id, 'verified': user.verified}
 
 
 class UserLogoutAccess(Resource):
