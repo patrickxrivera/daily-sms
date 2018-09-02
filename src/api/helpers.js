@@ -15,3 +15,8 @@ export const formatErrorMessage = (errorText, { status }) => ({
   errorText,
   status
 });
+
+export const handleError = ({ response }) =>
+  !response || !response.data.message
+    ? { error: true, message: 'Unknown error. Please try again.' }
+    : { error: true, ...response.data };

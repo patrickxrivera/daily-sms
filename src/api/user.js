@@ -1,21 +1,15 @@
 import axios from 'axios';
 import { registerUserSuccess } from 'redux/auth/dispatch';
+import { handleError } from './helpers';
 import {
   REGISTER_USER_ENDPOINT,
   VERIFY_USER_ENDPOINT,
   SIGN_IN_USER_ENDPOINT
 } from 'utils/endpoints';
 
-import * as h from './helpers';
-
-const handleError = ({ response }) =>
-  !response || !response.data.message
-    ? { error: true, message: 'Unknown error. Please try again.' }
-    : { error: true, ...response.data };
-
-export const registerUser = (userData) =>
+const post = (endpoint) => (requestData) =>
   axios
-    .post(REGISTER_USER_ENDPOINT, userData)
+    .post(endpoint, requestData)
     .then(({ data }) => data)
     .catch(handleError);
 
@@ -25,8 +19,6 @@ export const verifyUser = (verificationCode, userId) =>
     .then(({ data }) => data)
     .catch(handleError);
 
-export const signInUser = (userData) =>
-  axios
-    .post(SIGN_IN_USER_ENDPOINT, userData)
-    .then(({ data }) => data)
-    .catch(handleError);
+export const registerUser = post(REGISTER_USER_ENDPOINT);
+
+export const signInUser = post(SIGN_IN_USER_ENDPOINT);
