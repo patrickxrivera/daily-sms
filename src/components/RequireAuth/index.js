@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { getIsAuthenticated } from 'redux/auth/selectors';
+import { getVerified } from 'redux/auth/selectors';
 
 export default (ComposedComponent) => {
   class Authentication extends Component {
@@ -14,9 +14,9 @@ export default (ComposedComponent) => {
     }
 
     checkAuthStatus = () => {
-      const { isAuthenticated, history } = this.props;
+      const { verified, history } = this.props;
 
-      if (!isAuthenticated) history.push('/');
+      if (!verified) history.push('/');
     };
 
     render() {
@@ -25,7 +25,7 @@ export default (ComposedComponent) => {
   }
 
   const mapStateToProps = (state) => ({
-    isAuthenticated: getIsAuthenticated(state)
+    verified: getVerified(state)
   });
 
   return connect(mapStateToProps)(Authentication);

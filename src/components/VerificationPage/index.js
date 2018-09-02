@@ -9,7 +9,7 @@ import {
   Line,
   Subtext,
   ErrorText
-} from '../SignUp/styles';
+} from '../Auth/styles';
 import Button from 'components/Button';
 
 const LOADING_SIZE = 25;

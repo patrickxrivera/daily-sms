@@ -11,3 +11,5 @@ export const GET_MESSAGE_LIST_ENDPOINT = `${API_BASE_URL}/messages`;
 export const REGISTER_USER_ENDPOINT = `${API_BASE_URL}/register`;
 
 export const VERIFY_USER_ENDPOINT = `${API_BASE_URL}/verify`;
+
+export const SIGN_IN_USER_ENDPOINT = `${API_BASE_URL}/login`;

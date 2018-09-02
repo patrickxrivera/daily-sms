@@ -1,8 +1,4 @@
-export const registerUserSuccess = (credentials) => ({
+export const saveAuthCredentials = (credentials) => ({
   type: 'SAVE_AUTH_CREDENTIALS',
   credentials
-});
-
-export const verifyUserSuccess = () => ({
-  type: 'VERIFY_USER'
 });

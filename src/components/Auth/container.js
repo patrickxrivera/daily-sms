@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
-import SignUp from './';
+import Auth from './';
 import api from 'api';
 import { registerUser } from 'redux/auth/actions';
 import { isCreateError } from 'utils/errors';
 import { isValidSubmission, isInvalidKey, isDigit } from './helpers';
 
-class SignUpContainer extends Component {
+class AuthContainer extends Component {
   state = {
     phoneNumber: {
       value: '',
@@ -91,7 +92,7 @@ class SignUpContainer extends Component {
 
     this.setState({ renderLoadingIndicator: true });
 
-    const { error, ...res } = await this.props.registerUser({ phoneNumber, countryCode });
+    const { error, ...res } = await this.props.submitFn({ phoneNumber, countryCode });
 
     error ? this.handleRequestError(res) : this.handleRequestSuccess(res);
   };
@@ -114,8 +115,9 @@ class SignUpContainer extends Component {
 
   render() {
     return (
-      <SignUp
+      <Auth
         {...this.state}
+        {...this.props}
         handleSubmit={this.handleSubmit}
         handleInputChange={this.handleInputChange}
         handleKeyDown={this.handleKeyDown}
@@ -124,4 +126,4 @@ class SignUpContainer extends Component {
   }
 }
 
-export default connect(null, { registerUser })(SignUpContainer);
+export default withRouter(AuthContainer);

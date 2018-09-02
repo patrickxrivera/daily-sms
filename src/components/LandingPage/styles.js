@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import media from 'utils/mediaTemplate';
+import { Link } from 'react-router-dom';
 
 import colors from 'utils/colors';
 
@@ -50,7 +51,7 @@ export const Description = styled.span`
   max-width: 820px;
   padding-left: 8px;
   padding-right: 8px;
-  opacity: 0.8;
+  opacity: 0.6;
   text-align: center;
 `;
 
@@ -76,5 +77,24 @@ export const Button = styled.button`
 
   &:hover {
     background: rgba(9, 132, 280, 1);
+  }
+`;
+
+export const SignUpText = styled.div`
+  margin-top: 2rem;
+  opacity: 0.4;
+
+  &:hover {
+    opacity: 1;
+    cursor: pointer;
+    transition: background 120ms ease-in;
+  }
+`;
+
+export const StyledLink = styled(Link)`
+  text-decoration: none;
+
+  &:visited {
+    color: inherit;
   }
 `;

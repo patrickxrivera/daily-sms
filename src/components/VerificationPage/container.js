@@ -5,7 +5,7 @@ import api from 'api';
 import VerificationPage from './';
 import { isOkError } from 'utils/errors';
 import { verifyUser } from 'redux/auth/actions';
-import { isValidSubmission, isInvalidKey, isDigit } from '../SignUp/helpers';
+import { isValidSubmission, isInvalidKey, isDigit } from '../Auth/helpers';
 import { queryUrlParams } from './helpers';
 
 class VerificationPageContainer extends Component {
