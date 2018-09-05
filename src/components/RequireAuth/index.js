@@ -16,7 +16,7 @@ export default (ComposedComponent) => {
     checkAuthStatus = () => {
       const { verified, history } = this.props;
 
-      if (!verified) history.push('/');
+      // if (!verified) history.push('/');
     };
 
     render() {
