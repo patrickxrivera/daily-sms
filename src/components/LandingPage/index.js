@@ -37,7 +37,7 @@ const LandingPage = ({ handleDemoClick }) => (
         <Title>DailySMS</Title>
       </div>
       <div>
-        <StyledLink to="/sign-in" style={{ marginRight: '1rem' }}>
+        <StyledLink to="/signin" style={{ marginRight: '1rem' }}>
           <Text>Sign In</Text>
         </StyledLink>
         <StyledLink to="/register">
@@ -55,7 +55,7 @@ const LandingPage = ({ handleDemoClick }) => (
         <Button>Sign Up</Button>
       </StyledLink>
       <SecondaryButton onClick={handleDemoClick}>Demo</SecondaryButton>
-      <StyledLink to="/sign-in">
+      <StyledLink to="/signin">
         <SignUpText>Already signed up? Sign in here.</SignUpText>
       </StyledLink>
     </Body>

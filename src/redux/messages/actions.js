@@ -26,6 +26,8 @@ export const addMessage = ({ isDemoUser, ...messageRequest }) => async (dispatch
 
   if (!success) return;
 
+  dispatch(addMessageSuccess(message));
+
   return message;
 };
 
