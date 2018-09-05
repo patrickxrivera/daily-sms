@@ -4,7 +4,8 @@ from flask_restplus import inputs
 from dailysms.errors import DbError, UpdateMessageError, DeleteMessageError
 from dailysms.utils import add_to_parser
 from dailysms.models import MessageModel, UserModel
-from dailysms.services import TwilioService, Cron
+from dailysms.services import TwilioService
+from clock import add_job
 
 
 class Message(Resource):
@@ -25,8 +26,7 @@ class Message(Resource):
 
         user = UserModel.find_by_user_id(user_id)
 
-        cron = Cron()
-        cron.add_job(message, user.phone_number)
+        add_job()
 
         twilio = TwilioService()
         twilio.send_add_message_success_sms(user.formatted_phone_number, data)
@@ -53,9 +53,6 @@ class Message(Resource):
         message = MessageModel.find_by_message_id(message_id)
 
         message.delete_from_db()
-
-        cron = Cron()
-        cron.remove_job(message.id)
 
         return {'success': 'ok'}, 202
 

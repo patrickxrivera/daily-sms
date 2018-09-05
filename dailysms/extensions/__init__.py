@@ -4,15 +4,9 @@
 """
 
 from flask_sqlalchemy import SQLAlchemy
-from flask_apscheduler import APScheduler
 
 db = SQLAlchemy()
-scheduler = APScheduler()
 
 
-def init_extensions(app, db, scheduler):
+def init_extensions(app, db):
     db.init_app(app)
-
-    if not scheduler.running:
-        scheduler.init_app(app)
-        scheduler.start()

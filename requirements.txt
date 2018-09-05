@@ -36,7 +36,9 @@ PySocks==1.6.8
 python-dateutil==2.7.3
 python-dotenv==0.9.1
 pytz==2018.5
+redis==2.10.6
 requests==2.19.1
+rq==0.12.0
 simplejson==3.16.0
 six==1.11.0
 SQLAlchemy==1.2.0

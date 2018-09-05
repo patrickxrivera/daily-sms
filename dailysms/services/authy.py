@@ -1,3 +1,4 @@
+import os
 from dailysms.errors import VerificationCodeNotSentError
 from dailysms.errors import FailedVerificationError
 from dailysms.config import AuthySettings
@@ -6,6 +7,7 @@ from authy.api import AuthyApiClient
 
 class AuthyService(object):
     client = None
+    email = os.environ.get('AUTHY_EMAIL')
 
     def __init__(self):
         if AuthyService.client is None:
@@ -22,8 +24,7 @@ class AuthyService(object):
     @classmethod
     def _register_user_under_authy(cls, user):
         # TODO: figure out how to not require email
-        authy_user = cls.client.users.create(
-            'patxr7@gmail.com', user.phone_number, user.country_code)
+        authy_user = cls.client.users.create(cls.email, user.phone_number, user.country_code)
 
         if authy_user.ok():
             user.authy_user_id = authy_user.id
