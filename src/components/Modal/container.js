@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Modal from './';
-import { getUserId } from 'redux/auth/selectors';
+import { getUserId, getIsDemoUser } from 'redux/auth/selectors';
 import { addMessage } from 'redux/messages/actions';
 import { clearFields } from 'redux/form/actions';
 
@@ -45,11 +45,14 @@ class ModalContainer extends Component {
   };
 
   handleFormSubmit = async (fields) => {
-    const { addMessage, handleCloseModal, clearFields, userId } = this.props;
+    const { addMessage, handleCloseModal, clearFields, userId, isDemoUser } = this.props;
 
-    addMessage({ ...fields, user_id: userId });
+    addMessage({ ...fields, user_id: userId, isDemoUser });
+
     this.resetState();
+
     handleCloseModal();
+
     clearFields();
   };
 
@@ -73,7 +76,8 @@ class ModalContainer extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  userId: getUserId(state)
+  userId: getUserId(state),
+  isDemoUser: getIsDemoUser(state)
 });
 
 export default connect(mapStateToProps, { addMessage, clearFields })(ModalContainer);

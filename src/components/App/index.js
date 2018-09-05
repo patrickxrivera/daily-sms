@@ -19,7 +19,7 @@ const App = () => (
           <Route path="/register" component={SignUp} />
           <Route path="/sign-in" component={SignIn} />
           <Route path="/verify/:user_id" component={VerificationPageContainer} />
-          <Route path="/dashboard" component={RequireAuth(DashboardContainer)} />
+          <Route path="/dashboard" component={DashboardContainer} />
         </Switch>
       </Router>
     </Wrapper>

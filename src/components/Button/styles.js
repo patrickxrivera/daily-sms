@@ -21,8 +21,8 @@ export const ButtonStyles = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: ${({ marginTop }) => marginTop}
-  text-transform: ${({ uppercase }) => (uppercase ? 'uppercase' : 'none')}
+  margin-top: ${({ marginTop }) => marginTop};
+  text-transform: ${({ uppercase }) => (uppercase ? 'uppercase' : 'none')};
 
   &:hover {
     background: ${({ hoverBgColor, isDisabled }) => (isDisabled ? colors.disabled : hoverBgColor)};

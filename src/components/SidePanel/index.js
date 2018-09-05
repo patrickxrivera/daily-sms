@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { MessageCircle, LogOut } from 'react-feather';
 import { SidePanelWrapper, Heading, MenuItem, MenuItemText } from './styles';
 import colors from 'utils/colors';

@@ -1,6 +1,19 @@
 import React from 'react';
-import LandingPage from 'components/LandingPage';
+import { connect } from 'react-redux';
+import LandingPageContainer from 'components/LandingPage/container';
 
-const HomeController = () => <LandingPage />;
+import { getIsAuthenticated } from 'redux/auth/selectors';
+import { setDemoUser } from 'redux/auth/actions';
 
-export default HomeController;
+const routeToDashboard = ({ history }) => {
+  history.push('/dashboard');
+};
+
+const HomeController = ({ isAuthenticated, ...rest }) =>
+  isAuthenticated ? routeToDashboard(rest) : <LandingPageContainer {...rest} />;
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: getIsAuthenticated(state)
+});
+
+export default connect(mapStateToProps, { setDemoUser })(HomeController);

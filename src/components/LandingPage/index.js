@@ -9,10 +9,12 @@ import {
   Description,
   Button,
   SignUpText,
-  StyledLink
+  StyledLink,
+  SecondaryButton,
+  DemoText
 } from './styles';
 
-const LandingPage = () => (
+const LandingPage = ({ handleDemoClick }) => (
   <Wrapper>
     <Header>
       <div>
@@ -25,6 +27,7 @@ const LandingPage = () => (
         <StyledLink to="/register">
           <Text>Sign Up</Text>
         </StyledLink>
+        <DemoText onClick={handleDemoClick}>Demo</DemoText>
       </div>
     </Header>
     <Body>
@@ -35,6 +38,7 @@ const LandingPage = () => (
       <StyledLink to="/register">
         <Button>Sign Up</Button>
       </StyledLink>
+      <SecondaryButton onClick={handleDemoClick}>Demo</SecondaryButton>
       <StyledLink to="/sign-in">
         <SignUpText>Already signed up? Sign in here.</SignUpText>
       </StyledLink>

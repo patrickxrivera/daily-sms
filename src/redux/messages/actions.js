@@ -1,6 +1,7 @@
 import api from 'api';
 import { createAction } from 'redux-actions';
-
+import generateId from 'uuid/v4';
+import { formatTime } from 'utils/helpers';
 import {
   addMessageSuccess,
   toggleActiveStateSuccess,
@@ -8,12 +9,22 @@ import {
   getMessagesFromDbSuccess
 } from './dispatch';
 
-export const addMessage = (messageRequest) => async (dispatch) => {
+export const addMessage = ({ isDemoUser, ...messageRequest }) => async (dispatch) => {
+  if (isDemoUser) {
+    dispatch(
+      addMessageSuccess({
+        ...messageRequest,
+        id: generateId(),
+        active: true,
+        send_time: formatTime(messageRequest.send_time)
+      })
+    );
+    return;
+  }
+
   const { success, message } = await api.addMessage(messageRequest);
 
   if (!success) return;
-
-  dispatch(addMessageSuccess(message));
 
   return message;
 };
@@ -28,7 +39,12 @@ export const getMessagesFromDb = (userId) => async (dispatch) => {
   return messages;
 };
 
-export const deleteMessage = (userId, messageId) => async (dispatch) => {
+export const deleteMessage = (userId, messageId, isDemoUser) => async (dispatch) => {
+  if (isDemoUser) {
+    dispatch(deleteMessageSuccess(messageId));
+    return;
+  }
+
   const { success } = await api.deleteMessage(userId, messageId);
 
   if (!success) return;
@@ -38,8 +54,13 @@ export const deleteMessage = (userId, messageId) => async (dispatch) => {
   return success;
 };
 
-export const toggleActiveState = (userId, messageId, isActive) => async (dispatch) => {
+export const toggleActiveState = (userId, messageId, isActive, isDemoUser) => async (dispatch) => {
   const newActiveState = !isActive;
+
+  if (isDemoUser) {
+    dispatch(toggleActiveStateSuccess(messageId, newActiveState));
+    return;
+  }
 
   const { success } = await api.updateMessage(userId, messageId, { active: newActiveState });
 

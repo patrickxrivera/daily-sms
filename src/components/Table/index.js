@@ -2,7 +2,8 @@ import React from 'react';
 import Switch from 'react-toggle-switch';
 
 import { Edit, Trash } from 'components/Icon';
-import { Wrapper, TableWrapper, TableRow, TableCell, CallToActionWrapper } from './styles';
+import { Wrapper, TableWrapper, TableRow, TableCell, CallToActionWrapper, Text } from './styles';
+import { StyledLink } from '../LandingPage/styles';
 import Button from 'components/Button';
 import { shorten, formatTime } from './helpers';
 
@@ -55,19 +56,27 @@ const renderTableData = (messages, rest) => (
   </TableWrapper>
 );
 
-const renderCallToAction = (handleOpenModal) => (
+const renderCallToAction = ({ handleOpenModal, isDemoUser }) => (
   <CallToActionWrapper>
     <div>You haven't created any messages yet!</div>
     <div>Get started by clicking below.</div>
     <Button width="200px" fontSize="18px" marginTop="2rem" onClick={handleOpenModal}>
       Create Message
     </Button>
+    {isDemoUser && (
+      <div>
+        <Text>Note: You must be signed in to receive SMS messages to your phone.</Text>
+        <StyledLink to="/register">
+          <Text style={{ marginTop: '.7rem' }}>Sign up here!</Text>
+        </StyledLink>
+      </div>
+    )}
   </CallToActionWrapper>
 );
 
-const Table = ({ handleOpenModal, messages, ...rest }) => (
+const Table = ({ messages, ...rest }) => (
   <Wrapper>
-    {isEmpty(messages) ? renderCallToAction(handleOpenModal) : renderTableData(messages, rest)}
+    {isEmpty(messages) ? renderCallToAction(rest) : renderTableData(messages, rest)}
   </Wrapper>
 );
 

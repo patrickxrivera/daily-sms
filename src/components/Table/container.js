@@ -4,35 +4,36 @@ import { connect } from 'react-redux';
 import api from 'api';
 import { getMessagesFromDb, toggleActiveState, deleteMessage } from 'redux/messages/actions';
 import { getMessagesFromClient } from 'redux/messages/selectors';
-import { getUserId } from 'redux/auth/selectors';
+import { getUserId, getIsDemoUser } from 'redux/auth/selectors';
 
 import Table from './';
 
 class TableContainer extends Component {
   componentDidMount() {
-    const { getMessagesFromDb, userId } = this.props;
+    const { getMessagesFromDb, userId, isDemoUser } = this.props;
 
-    getMessagesFromDb(userId);
+    if (!isDemoUser) {
+      getMessagesFromDb(userId);
+    }
   }
 
   toggleSwitch = (messageId, active) => () => {
-    const { userId, toggleActiveState } = this.props;
-    toggleActiveState(userId, messageId, active);
+    const { userId, toggleActiveState, isDemoUser } = this.props;
+    toggleActiveState(userId, messageId, active, isDemoUser);
   };
 
   handleDeleteClick = (messageId) => () => {
-    const { userId, deleteMessage } = this.props;
-    deleteMessage(userId, messageId);
+    const { userId, deleteMessage, isDemoUser } = this.props;
+    deleteMessage(userId, messageId, isDemoUser);
   };
 
   render() {
     return (
       <Table
         {...this.state}
-        messages={this.props.messages}
+        {...this.props}
         toggleSwitch={this.toggleSwitch}
         handleDeleteClick={this.handleDeleteClick}
-        handleOpenModal={this.props.handleOpenModal}
       />
     );
   }
@@ -40,7 +41,8 @@ class TableContainer extends Component {
 
 const mapStateToProps = (state) => ({
   userId: getUserId(state),
-  messages: getMessagesFromClient(state)
+  messages: getMessagesFromClient(state),
+  isDemoUser: getIsDemoUser(state)
 });
 
 export default connect(mapStateToProps, { getMessagesFromDb, toggleActiveState, deleteMessage })(

@@ -6,6 +6,8 @@ import { formatUserData, formatVerificationCode } from 'api/helpers';
 
 export const logOutUser = createAction('LOG_OUT_USER');
 
+export const setDemoUser = createAction('SET_DEMO_USER');
+
 const auth = (apiFn) => (userData) => async (dispatch) => {
   const formattedUserData = formatUserData(userData);
 

@@ -10,6 +10,7 @@ export const Wrapper = styled.div`
   margin: 1.5rem 0;
   background-color: #fff;
   overflow-y: auto;
+  text-align: center;
 `;
 
 export const TableWrapper = styled.table`
@@ -43,4 +44,14 @@ export const CallToActionWrapper = styled.div`
   align-items: center;
   padding-top: 10rem;
   font-size: 2rem;
+`;
+
+export const Text = styled.div`
+  font-size: 14px;
+  opacity: 0.8;
+  margin-top: 2rem;
+
+  &:hover {
+    opacity: 1;
+  }
 `;
