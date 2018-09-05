@@ -147,3 +147,68 @@ export const SecondaryButton = styled.div`
     cursor: pointer;
   }
 `;
+
+export const FeaturesWrapper = styled.div`
+  margin-top: 8rem;
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+`;
+
+export const FeaturesHeadingText = styled.div`
+  font-size: 2rem;
+`;
+
+export const FeaturesSubheadingText = styled.div`
+  font-size: 1.5rem;
+  margin: 0.5rem 0;
+`;
+
+export const FeaturesDescriptionText = styled.div`
+  font-size: 1.1rem;
+  color: #617080;
+`;
+
+export const FeaturesIconsWrapper = styled.div`
+  margin-top: 3rem;
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+`;
+
+export const FeaturesIconWrapper = styled.div`
+  width: 300px;
+`;
+
+export const Footer = styled.div`
+  border-top: 1px solid #ebebeb;
+  display: flex;
+  margin-top: 5rem;
+  padding-top: 10px;
+  justify-content: space-between;
+`;
+
+export const CopyrightText = styled.small`
+  color: #617080;
+  font-size: 13px;
+  margin-top: 8px;
+  opacity: 0.6;
+`;
+
+export const SocialIcons = styled.div`
+  display: flex;
+  width: 70px;
+  justify-content: space-between;
+`;
+
+export const StyledATag = styled.a`
+  text-decoration: none;
+  color: inherit;
+  opacity: 0.6;
+
+  &:hover {
+    opacity: 1;
+    transition: background 150ms ease-in;
+  }
+`;
