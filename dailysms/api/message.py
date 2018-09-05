@@ -26,7 +26,7 @@ class Message(Resource):
 
         user = UserModel.find_by_user_id(user_id)
 
-        add_job()
+        add_job(message, user.phone_number)
 
         twilio = TwilioService()
         twilio.send_add_message_success_sms(user.formatted_phone_number, data)
