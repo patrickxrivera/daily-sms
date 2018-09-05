@@ -1,3 +1,4 @@
+# from apscheduler.schedulers.blocking import BlockingScheduler
 from dailysms.utils import format_job_params
 from dailysms.services.twilio import TwilioService
 from dailysms.errors import DailySMSError, AddJobError
@@ -14,9 +15,10 @@ q = Queue(connection=conn)
 
 twilio = TwilioService()
 
+# scheduler = BlockingScheduler()
+
 
 def send_sms(*args):
-    print(args)
     q.enqueue(twilio.send_sms, *args)
 
 
@@ -29,3 +31,6 @@ def add_job(*args):
     except Exception as e:
         print(e)
         raise AddJobError(f'Unable to add job with message id: {message.id}')
+
+
+# scheduler.start()

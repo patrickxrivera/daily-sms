@@ -3,10 +3,8 @@
     in app.py
 """
 
-
 from flask_sqlalchemy import SQLAlchemy
 from flask_apscheduler import APScheduler
-import os
 
 db = SQLAlchemy()
 scheduler = APScheduler()
