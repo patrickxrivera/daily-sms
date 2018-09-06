@@ -54,8 +54,7 @@ class Message(Resource):
 
         message.delete_from_db()
 
-        # scheduler.remove_job(message_id)
-        scheduler.remove_all_jobs()
+        scheduler.remove_job(message_id)
 
         return {'success': 'ok'}, 202
 
