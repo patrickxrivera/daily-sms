@@ -1,10 +1,10 @@
 from flask_restful import Resource, reqparse
 from flask_restplus import inputs
-
 from dailysms.errors import DbError, UpdateMessageError, DeleteMessageError
 from dailysms.utils import add_to_parser
 from dailysms.models import MessageModel, UserModel
 from dailysms.services import TwilioService
+from dailysms.extensions import scheduler
 from clock import add_job
 
 
@@ -53,6 +53,9 @@ class Message(Resource):
         message = MessageModel.find_by_message_id(message_id)
 
         message.delete_from_db()
+
+        # scheduler.remove_job(message_id)
+        scheduler.remove_all_jobs()
 
         return {'success': 'ok'}, 202
 
