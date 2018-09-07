@@ -32,74 +32,50 @@ const SOCIAL_ICON_SIZE = 16;
 
 const LandingPage = ({ handleDemoClick }) => (
   <Wrapper>
-    <Header>
-      <div>
-        <Title>DailySMS</Title>
-      </div>
-      <div>
-        <StyledLink to="/signin" style={{ marginRight: '1rem' }}>
-          <Text>Sign In</Text>
-        </StyledLink>
+    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+      <Header>
+        <div>
+          <Title>DailySMS</Title>
+        </div>
+        <div>
+          <StyledLink to="/signin" style={{ marginRight: '1rem' }}>
+            <Text>Sign In</Text>
+          </StyledLink>
+          <StyledLink to="/register">
+            <Text>Sign Up</Text>
+          </StyledLink>
+          <DemoText onClick={handleDemoClick}>Demo</DemoText>
+        </div>
+      </Header>
+      <Body>
+        <MainText>Send yourself a daily SMS</MainText>
+        <Description>
+          Wake up every morning to a motivational quote, a goal you want to reach, or something
+          funny.
+        </Description>
         <StyledLink to="/register">
-          <Text>Sign Up</Text>
+          <Button>Sign Up</Button>
         </StyledLink>
-        <DemoText onClick={handleDemoClick}>Demo</DemoText>
-      </div>
-    </Header>
-    <Body>
-      <MainText>Send yourself a daily SMS</MainText>
-      <Description>
-        Wake up every morning to a motivational quote, a goal you want to reach, or something funny.
-      </Description>
-      <StyledLink to="/register">
-        <Button>Sign Up</Button>
-      </StyledLink>
-      <SecondaryButton onClick={handleDemoClick}>Demo</SecondaryButton>
-      <StyledLink to="/signin">
-        <SignUpText>Already signed up? Sign in here.</SignUpText>
-      </StyledLink>
-    </Body>
-    <FeaturesWrapper>
-      <FeaturesHeadingText>Why use DailySMS?</FeaturesHeadingText>
-      <FeaturesIconsWrapper>
-        <FeaturesIconWrapper>
-          <Search color={colors.primary} size={ICON_SIZE} />
-          <FeaturesSubheadingText>Search</FeaturesSubheadingText>
-          <FeaturesDescriptionText>
-            We leverage Spotify's extensive catalog so you can search for all your favorite artists.
-          </FeaturesDescriptionText>
-        </FeaturesIconWrapper>
-        <FeaturesIconWrapper>
-          <Headphones color={colors.primary} size={ICON_SIZE} />
-          <FeaturesSubheadingText>Listen</FeaturesSubheadingText>
-          <FeaturesDescriptionText>
-            Jam out to your playlist with a fully-featured web music player. *Note: only for Spotify
-            Premium subscribers.
-          </FeaturesDescriptionText>
-        </FeaturesIconWrapper>
-        <FeaturesIconWrapper>
-          <Download color={colors.primary} size={ICON_SIZE} />
-          <FeaturesSubheadingText>Save</FeaturesSubheadingText>
-          <FeaturesDescriptionText>
-            Save your playlists to your Spotify account so you can listen on the go.
-          </FeaturesDescriptionText>
-        </FeaturesIconWrapper>
-      </FeaturesIconsWrapper>
-    </FeaturesWrapper>
-    <Footer>
-      <CopyrightText>© Copyright 2018. All Rights Reserved.</CopyrightText>
-      <SocialIcons>
-        <StyledATag href="https://github.com/pxr13" target="_blank">
-          <Github size={SOCIAL_ICON_SIZE} />
-        </StyledATag>
-        <StyledATag href="https://linkedin.com/in/patrickxrivera" target="_blank">
-          <Linkedin size={SOCIAL_ICON_SIZE} />
-        </StyledATag>
-        <StyledATag href="https://twitter.com/pxr13" target="_blank">
-          <Twitter size={SOCIAL_ICON_SIZE} />
-        </StyledATag>
-      </SocialIcons>
-    </Footer>
+        <SecondaryButton onClick={handleDemoClick}>Demo</SecondaryButton>
+        <StyledLink to="/signin">
+          <SignUpText>Already signed up? Sign in here.</SignUpText>
+        </StyledLink>
+      </Body>
+      <Footer>
+        <CopyrightText>© Copyright 2018. All Rights Reserved.</CopyrightText>
+        <SocialIcons>
+          <StyledATag href="https://github.com/pxr13" target="_blank">
+            <Github size={SOCIAL_ICON_SIZE} />
+          </StyledATag>
+          <StyledATag href="https://linkedin.com/in/patrickxrivera" target="_blank">
+            <Linkedin size={SOCIAL_ICON_SIZE} />
+          </StyledATag>
+          <StyledATag href="https://twitter.com/pxr13" target="_blank">
+            <Twitter size={SOCIAL_ICON_SIZE} />
+          </StyledATag>
+        </SocialIcons>
+      </Footer>
+    </div>
   </Wrapper>
 );
 
