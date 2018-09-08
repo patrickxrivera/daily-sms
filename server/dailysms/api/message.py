@@ -35,7 +35,13 @@ class Message(Resource):
 
     @classmethod
     def put(cls, user_id, message_id):
-        """Update message fields"""
+        """
+        Update message fields
+
+        :param user_id - Int
+        :param message_id - Int
+        :return request status - Dict
+        """
         data = cls.parser.parse_args()
         valid_fields = {k: v for k, v in data.items() if v != None}
 
