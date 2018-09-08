@@ -4,8 +4,7 @@
 
 Schedule SMS messages using a Redis job queue, background cron job workers, and a REST API.
 
-![homepage](https://github.com/pxr13/playlist.io/blob/master/client/public/homepage.png)
-![search](https://github.com/pxr13/playlist.io/blob/master/client/public/search.gif)
+![dashboard](https://github.com/pxr13/daily-sms/blob/master/client/public/daily_sms.gif)
 
 
 ## Stack
@@ -56,7 +55,7 @@ def add_job(*args):
 
 As seen in the gif above, users are given a checkbox to decide when to send their SMS. I wanted to make sure that when one box was checked, all other boxes would become unchecked.
 
-If the values are in an array, we could simply map over them and set checkboxes to be checked or unchecked depending on which one the user checked last. However, our values were stored in an object for simpler rendering in the component so it was a bit tricker.
+If the values are in an array, we could simply map over them and set checkboxes to be checked or unchecked depending on which one the user checked last. However, our values were stored in an object for simpler rendering in the component so it was a bit trickier.
 
 For example, assuming "Every day" was originally checked but now "Weekdays" is checked, the following code transforms this:
 
@@ -86,6 +85,8 @@ Let's see.
 
 ```javascript
 handleChange = (e) => {
+  const DAYS = ['Every day', 'Weekdays', 'Weekends']
+  
   const { name } = event.target;
 
   const updatedDays = DAYS.reduce(updateDays(name), {});
