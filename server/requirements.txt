@@ -22,7 +22,7 @@ Flask-Testing==0.7.1
 gunicorn==19.4.5
 idna==2.7
 itsdangerous==0.24
-Jinja2==2.10
+Jinja2==2.11.3
 jsonschema==2.6.0
 MarkupSafe==1.0
 passlib==1.7.1
